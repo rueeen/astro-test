@@ -1,0 +1,56 @@
+---
+interface Service {
+  id: string;
+  title: string;
+  subtitle?: string;
+  intro: string;
+  details: string[];
+  highlight?: string;
+}
+
+interface Props {
+  title: string;
+  subtitle: string;
+  items: Service[];
+}
+
+const { title, subtitle, items } = Astro.props;
+---
+
+<section id="servicios" class="bg-[#f5f7fa] py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-amber-600">Servicios</p>
+    <h2 class="mt-2 text-3xl font-bold text-[#12264a] md:text-4xl">{title}</h2>
+    <p class="mt-4 text-lg text-slate-600">{subtitle}</p>
+
+    <div class="mt-10 space-y-4 md:hidden">
+      {items.map((service, index) => (
+        <details class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200" data-reveal>
+          <summary class="cursor-pointer text-lg font-semibold text-[#12264a]">{index + 1}. {service.title}</summary>
+          {service.subtitle && <p class="mt-4 font-medium text-amber-700">{service.subtitle}</p>}
+          <p class="mt-3 text-slate-600">{service.intro}</p>
+          <ul class="mt-4 list-disc space-y-2 pl-5 text-slate-600">
+            {service.details.map((detail) => <li>{detail}</li>)}
+          </ul>
+          {service.highlight && <p class="mt-4 rounded-xl bg-amber-100 p-3 font-semibold text-amber-900">{service.highlight}</p>}
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 hidden gap-6 md:grid md:grid-cols-3">
+      {items.map((service) => (
+        <article data-reveal class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition hover:-translate-y-1 hover:shadow-lg">
+          <h3 class="text-2xl font-bold text-[#12264a]">{service.title}</h3>
+          {service.subtitle && <p class="mt-2 font-semibold text-amber-700">{service.subtitle}</p>}
+          <p class="mt-3 text-slate-600">{service.intro}</p>
+          <ul class="mt-4 space-y-2 text-sm text-slate-600">
+            {service.details.map((detail) => (
+              <li class="flex gap-2"><span class="mt-1 h-2 w-2 rounded-full bg-amber-500"></span><span>{detail}</span></li>
+            ))}
+          </ul>
+          {service.highlight && <p class="mt-4 rounded-xl bg-[#12264a] p-3 font-semibold text-white">{service.highlight}</p>}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

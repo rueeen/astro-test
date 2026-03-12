@@ -1,0 +1,118 @@
+---
+interface Contact {
+  address: string;
+  email: string;
+  phone: string;
+  phoneHref: string;
+  whatsappHref: string;
+}
+
+interface Props {
+  title: string;
+  text: string;
+  contact: Contact;
+}
+
+const { title, text, contact } = Astro.props;
+---
+
+<section id="contacto" class="bg-slate-50 py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="rounded-3xl bg-gradient-to-r from-[#12264a] to-[#0b1831] p-8 text-white md:p-10" data-reveal>
+      <h2 class="text-3xl font-bold md:text-4xl">{title}</h2>
+      <p class="mt-4 max-w-3xl text-slate-200">{text}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#formulario-contacto" class="rounded-full bg-amber-500 px-7 py-3 font-semibold text-slate-900 transition hover:bg-amber-400">Solicitar cotización</a>
+        <a href={contact.whatsappHref} target="_blank" rel="noreferrer" class="rounded-full border border-white/30 px-7 py-3 font-semibold transition hover:bg-white/10">Escribir por WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <div data-reveal>
+        <h3 class="text-2xl font-bold text-[#12264a]">Canales de contacto</h3>
+        <ul class="mt-6 space-y-4 text-slate-700">
+          <li><strong>Dirección:</strong> {contact.address}</li>
+          <li><strong>Email:</strong> <a class="text-[#12264a] underline" href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li><strong>Teléfono:</strong> <a class="text-[#12264a] underline" href={contact.phoneHref}>{contact.phone}</a></li>
+          <li><strong>WhatsApp:</strong> <a class="text-[#12264a] underline" href={contact.whatsappHref} target="_blank" rel="noreferrer">Contactar ahora</a></li>
+        </ul>
+      </div>
+
+      <form id="formulario-contacto" class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200" novalidate data-reveal>
+        <h3 class="text-xl font-bold text-[#12264a]">Formulario de contacto</h3>
+        <p class="mt-2 text-sm text-slate-500">Preparado para conectar con un endpoint de envío posteriormente.</p>
+
+        <div class="mt-5 grid gap-4">
+          <label class="text-sm font-medium text-slate-700" for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" required class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-[#12264a] focus:outline-none focus:ring-2 focus:ring-[#12264a]/20" />
+          <p class="hidden text-sm text-red-600" data-error-for="nombre">Ingresa tu nombre.</p>
+
+          <label class="text-sm font-medium text-slate-700" for="empresa">Empresa</label>
+          <input id="empresa" name="empresa" required class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-[#12264a] focus:outline-none focus:ring-2 focus:ring-[#12264a]/20" />
+          <p class="hidden text-sm text-red-600" data-error-for="empresa">Ingresa el nombre de tu empresa.</p>
+
+          <label class="text-sm font-medium text-slate-700" for="telefono">Teléfono</label>
+          <input id="telefono" name="telefono" required class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-[#12264a] focus:outline-none focus:ring-2 focus:ring-[#12264a]/20" />
+          <p class="hidden text-sm text-red-600" data-error-for="telefono">Ingresa un teléfono válido.</p>
+
+          <label class="text-sm font-medium text-slate-700" for="email">Email</label>
+          <input id="email" name="email" type="email" required class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-[#12264a] focus:outline-none focus:ring-2 focus:ring-[#12264a]/20" />
+          <p class="hidden text-sm text-red-600" data-error-for="email">Ingresa un email válido.</p>
+
+          <label class="text-sm font-medium text-slate-700" for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="4" required class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-[#12264a] focus:outline-none focus:ring-2 focus:ring-[#12264a]/20"></textarea>
+          <p class="hidden text-sm text-red-600" data-error-for="mensaje">Describe tu requerimiento.</p>
+        </div>
+
+        <button type="submit" class="mt-6 w-full rounded-xl bg-[#12264a] px-6 py-3 font-semibold text-white transition hover:bg-[#0b1831] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#12264a]">Enviar solicitud</button>
+        <p class="mt-3 text-sm" id="form-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector('#formulario-contacto');
+  const status = document.querySelector('#form-status');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form || !status) return;
+
+    const fields = ['nombre', 'empresa', 'telefono', 'email', 'mensaje'];
+    let valid = true;
+
+    fields.forEach((name) => {
+      const input = form.elements.namedItem(name);
+      const error = form.querySelector(`[data-error-for="${name}"]`);
+      if (!(input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) || !error) {
+        return;
+      }
+
+      const value = input.value.trim();
+      const emailInvalid = name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      const phoneInvalid = name === 'telefono' && value.length < 8;
+      const invalid = value.length === 0 || emailInvalid || phoneInvalid;
+
+      input.setAttribute('aria-invalid', String(invalid));
+      error.classList.toggle('hidden', !invalid);
+      if (invalid) valid = false;
+    });
+
+    if (!valid) {
+      status.textContent = 'Revisa los campos marcados antes de enviar.';
+      status.className = 'mt-3 text-sm text-red-600';
+      return;
+    }
+
+    status.textContent = 'Enviando solicitud...';
+    status.className = 'mt-3 text-sm text-slate-600';
+
+    // Placeholder de integración para backend real.
+    await new Promise((resolve) => setTimeout(resolve, 900));
+
+    status.textContent = 'Solicitud enviada correctamente. Te contactaremos a la brevedad.';
+    status.className = 'mt-3 text-sm text-emerald-700';
+    form.reset();
+  });
+</script>
