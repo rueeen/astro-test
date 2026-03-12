@@ -1,5 +1,6 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import { Image } from "astro:assets";
+import aboutImage from "../assets/about.png";
 
 interface Props {
   title: string;
@@ -15,11 +16,23 @@ const { title, subtitle, text, mission, vision } = Astro.props;
 <section id="nosotros" class="bg-slate-50 py-20">
   <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-2 lg:px-8">
     <div class="space-y-6" data-reveal>
-      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-amber-600">Nosotros</p>
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.16em] text-amber-600"
+      >
+        Nosotros
+      </p>
       <h2 class="text-3xl font-bold text-[#12264a] md:text-4xl">{title}</h2>
       <p class="text-lg font-medium text-slate-700">{subtitle}</p>
       <p class="text-slate-600">{text}</p>
-      <div class="h-64 rounded-2xl bg-[url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center shadow-lg" role="img" aria-label="Operación industrial y energética"></div>
+
+      <div class="relative w-full rounded-2xl overflow-hidden shadow-lg">
+        <Image
+          src={aboutImage}
+          alt="Operación industrial y energética de EIRP+ con separaciones transparentes"
+          class="w-full h-auto object-cover object-center"
+          quality="high"
+        />
+      </div>
     </div>
 
     <div class="grid gap-6" data-reveal>
