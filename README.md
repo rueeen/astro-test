@@ -1,46 +1,33 @@
-# Astro Starter Kit: Basics
+# Landing EIRP+ (Astro + Tailwind)
 
-```sh
-npm create astro@latest -- --template basics
+Landing corporativa single-page para EIRP+, enfocada en conversión para industria y minería.
+
+## Crear proyecto e instalar dependencias
+
+```bash
+npm create astro@latest eirp-landing -- --template basics --install --typescript strict
+cd eirp-landing
+npx astro add tailwind
+npm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Ejecutar en local
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm run dev
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Build de producción
 
-## 🧞 Commands
+```bash
+npm run build
+npm run preview
+```
 
-All commands are run from the root of the project, from a terminal:
+## Estructura principal
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/data/site.ts`: contenido desacoplado.
+- `src/layouts/BaseLayout.astro`: layout base con SEO.
+- `src/components/*`: secciones reutilizables de la landing.
+- `src/pages/index.astro`: composición de la página.
+- `src/styles/global.css`: estilos globales + animaciones suaves.

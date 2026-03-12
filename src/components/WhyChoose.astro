@@ -1,0 +1,45 @@
+---
+interface Reason {
+  title: string;
+  text: string;
+  icon: 'layer' | 'clock' | 'leaf';
+}
+
+interface Props {
+  reasons: Reason[];
+}
+
+const { reasons } = Astro.props;
+
+const iconPathMap: Record<string, string> = {
+  layer: 'M4 7l8-4 8 4-8 4-8-4zm0 5l8 4 8-4M4 12v5l8 4 8-4v-5',
+  clock: 'M12 8v5l3 3m6-4a9 9 0 11-18 0 9 9 0 0118 0z',
+  leaf: 'M5 13c0-6 4-9 9-9 2 0 4 .5 6 1-1 6-5 11-11 11-2 0-3.5-.4-5-1 2-.4 4-1.2 6-2.5'
+};
+---
+
+<section class="bg-white py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <h2 class="text-center text-3xl font-bold text-[#12264a] md:text-4xl">¿Por qué elegir EIRP+?</h2>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {reasons.map((reason, index) => (
+        <article
+          data-reveal
+          class:list={[
+            'group rounded-2xl p-7 shadow-sm ring-1 transition duration-300 hover:-translate-y-1 hover:shadow-xl',
+            index % 2 === 0
+              ? 'bg-[#12264a] text-slate-100 ring-[#12264a]'
+              : 'bg-amber-500 text-slate-900 ring-amber-400'
+          ]}
+        >
+          <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={iconPathMap[reason.icon]}></path>
+          </svg>
+          <h3 class="mt-6 text-xl font-bold">{reason.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed opacity-95">{reason.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

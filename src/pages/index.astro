@@ -1,8 +1,45 @@
 ---
-
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import About from '../components/About.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Coverage from '../components/Coverage.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import Navbar from '../components/Navbar.astro';
+import Services from '../components/Services.astro';
+import WhyChoose from '../components/WhyChoose.astro';
+import { siteData } from '../data/site';
 ---
 
+<BaseLayout title={siteData.title} description={siteData.description}>
+  <Navbar links={siteData.navLinks} companyName={siteData.companyName} />
+  <main>
+    <Hero {...siteData.hero} whatsappHref={siteData.contact.whatsappHref} />
+    <About {...siteData.about} />
+    <WhyChoose reasons={siteData.reasons} />
+    <Services {...siteData.services} />
+    <Coverage {...siteData.coverage} />
 
+    <ContactSection title={siteData.finalCta.title} text={siteData.finalCta.text} contact={siteData.contact} />
+  </main>
+
+  <Footer companyName={siteData.companyName} />
+  <FloatingWhatsApp href={siteData.contact.whatsappHref} />
+</BaseLayout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
+</script>
