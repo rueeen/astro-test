@@ -1,38 +1,70 @@
 ---
-import SectionHeading from './SectionHeading.astro';
+import { Image } from "astro:assets";
+// Asegúrate de que esta ruta apunte a tu imagen de mapa de cobertura
+import mapaCobertura from "../assets/mapa-cobertura.png"; 
 
 interface Props {
   title: string;
   text: string;
   points: string[];
-  cities: string[];
 }
 
-const { title, text, points, cities } = Astro.props;
+const { title, text, points } = Astro.props;
+
+// Solo las primeras 4 regiones del norte, con coordenadas centradas
+const regionesNorte = [
+  { nombre: "Arica", top: "8%", left: "40%" },
+  { nombre: "Iquique", top: "22%", left: "40%" },
+  { nombre: "Antofagasta", top: "42%", left: "37%" },
+  { nombre: "Calama", top: "35%", left: "55%" },
+];
 ---
 
 <section id="cobertura" class="bg-[#0b1831] py-20 text-slate-100">
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
-    <h2 class="text-3xl font-bold md:text-4xl" data-reveal>{title}</h2>
-    <p class="mt-4 max-w-3xl text-slate-200" data-reveal>{text}</p>
+    <div class="text-center mb-16" data-reveal>
+      <h2 class="text-3xl font-bold md:text-4xl">{title}</h2>
+      <p class="mt-4 max-w-2xl mx-auto text-slate-300">
+        {text}
+      </p>
+    </div>
 
-    <div class="mt-8 grid gap-6 lg:grid-cols-2">
-      <ul class="space-y-3" data-reveal>
+    <div class="grid gap-12 lg:grid-cols-2 items-center">
+      <ul class="space-y-5" data-reveal>
         {points.map((point) => (
-          <li class="flex items-start gap-3 rounded-xl bg-white/10 p-4 backdrop-blur-sm">
-            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-400"></span>
-            <span>{point}</span>
+          <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md hover:bg-white/10 transition-all duration-300">
+            <span class="h-3 w-3 shrink-0 rounded-full bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.6)]"></span>
+            <span class="text-lg font-medium text-slate-200">{point}</span>
           </li>
         ))}
       </ul>
 
-      <div class="rounded-2xl border border-white/20 bg-white/5 p-6" data-reveal>
-        <p class="text-sm uppercase tracking-[0.14em] text-amber-300">Cobertura operativa</p>
-        <div class="mt-6 grid grid-cols-2 gap-4">
-          {cities.map((city, idx) => (
-            <div class="rounded-xl border border-white/20 bg-white/10 p-4 text-center font-semibold">
-              <span class="block text-xs text-amber-300">Punto {idx + 1}</span>
-              <span>{city}</span>
+      <div class="relative rounded-3xl border border-white/10 bg-[#12264a]/40 p-8 shadow-2xl overflow-hidden" data-reveal>
+        <p class="absolute top-8 left-8 z-10 text-[10px] uppercase tracking-[0.3em] text-amber-300/80 font-bold">
+          Cobertura Operativa
+        </p>
+        
+        <div class="relative mx-auto max-w-[280px]">
+          <Image 
+            src={mapaCobertura} 
+            alt="Mapa cobertura norte de Chile" 
+            class="h-auto w-full object-contain opacity-90"
+          />
+
+          {regionesNorte.map((reg) => (
+            <div 
+              class="group absolute cursor-help" 
+              style={`top: ${reg.top}; left: ${reg.left};`}
+            >
+              <div class="relative flex items-center justify-center">
+                <div class="absolute h-6 w-6 animate-ping rounded-full bg-amber-400/40"></div>
+                <div class="relative h-4 w-4 rounded-full bg-amber-500 border-2 border-[#0b1831] shadow-xl group-hover:scale-125 transition-transform"></div>
+              </div>
+
+              <div class="absolute bottom-full left-1/2 mb-4 -translate-x-1/2 whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-bold text-[#0b1831] opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100 group-hover:-translate-y-2 shadow-[0_10px_20px_rgba(0,0,0,0.3)] pointer-events-none">
+                {reg.nombre}
+                <div class="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-white"></div>
+              </div>
             </div>
           ))}
         </div>
