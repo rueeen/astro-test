@@ -12,27 +12,25 @@ interface Props {
 const { title, subtitle, text, mission, vision } = Astro.props;
 ---
 
-<section id="nosotros" class="bg-[#eceef1] py-20">
-  <div class="mx-auto max-w-7xl px-5 lg:px-8">
-    <SectionHeading title={title} subtitle={subtitle} />
-
-    <div class="mt-10 grid gap-8 lg:grid-cols-2">
-      <div class="space-y-4 text-2xl leading-relaxed text-slate-800" data-reveal>
-        <p>{text}</p>
-      </div>
-
-      <div class="grid gap-6" data-reveal>
-        <article class="rounded-3xl bg-white p-7 shadow-sm">
-          <h3 class="text-5xl font-black uppercase text-[#1b2d5b]">Misión</h3>
-          <p class="mt-4 text-lg text-slate-700">{mission}</p>
-        </article>
-        <article class="rounded-3xl bg-white p-7 shadow-sm">
-          <h3 class="text-5xl font-black uppercase text-[#1b2d5b]">Visión</h3>
-          <p class="mt-4 text-lg text-slate-700">{vision}</p>
-        </article>
-      </div>
+<section id="nosotros" class="bg-slate-50 py-20">
+  <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-2 lg:px-8">
+    <div class="space-y-6" data-reveal>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-amber-600">Nosotros</p>
+      <h2 class="text-3xl font-bold text-[#12264a] md:text-4xl">{title}</h2>
+      <p class="text-lg font-medium text-slate-700">{subtitle}</p>
+      <p class="text-slate-600">{text}</p>
+      <div class="h-64 rounded-2xl bg-[url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center shadow-lg" role="img" aria-label="Operación industrial y energética"></div>
     </div>
 
-    <div data-reveal class="mt-10 h-72 rounded-3xl bg-[url('https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center"></div>
+    <div class="grid gap-6" data-reveal>
+      <article class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
+        <h3 class="text-xl font-bold text-[#12264a]">Misión</h3>
+        <p class="mt-3 text-slate-600">{mission}</p>
+      </article>
+      <article class="rounded-2xl bg-[#12264a] p-7 text-slate-100 shadow-sm">
+        <h3 class="text-xl font-bold text-amber-300">Visión</h3>
+        <p class="mt-3 text-slate-100/95">{vision}</p>
+      </article>
+    </div>
   </div>
 </section>

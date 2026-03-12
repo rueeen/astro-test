@@ -11,25 +11,31 @@ interface Props {
 const { title, text, points, cities } = Astro.props;
 ---
 
-<section id="cobertura" class="relative overflow-hidden bg-[#1b2d5b] py-20 text-white">
-  <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center opacity-20"></div>
-  <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
-    <SectionHeading title="Seguridad y" subtitle="Cobertura" light />
-    <p class="mt-8 max-w-4xl text-2xl text-slate-100" data-reveal>{text}</p>
+<section id="cobertura" class="bg-[#0b1831] py-20 text-slate-100">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <h2 class="text-3xl font-bold md:text-4xl" data-reveal>{title}</h2>
+    <p class="mt-4 max-w-3xl text-slate-200" data-reveal>{text}</p>
 
-    <ul class="mt-8 space-y-3 text-xl" data-reveal>
-      {points.map((point) => <li class="flex gap-2"><span>•</span><span>{point}</span></li>)}
-    </ul>
-
-    <div class="mt-12 rounded-3xl border border-white/20 bg-[#0b1831]/70 p-6" data-reveal>
-      <p class="text-sm font-bold uppercase tracking-[0.2em] text-amber-300">Cobertura geográfica</p>
-      <div class="mt-8 grid gap-5 md:grid-cols-4">
-        {cities.map((city) => (
-          <div class="rounded-2xl bg-white/10 p-4 text-center">
-            <span class="mx-auto mb-3 block h-3 w-3 rounded-full bg-amber-400"></span>
-            <p class="text-lg font-semibold">{city}</p>
-          </div>
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <ul class="space-y-3" data-reveal>
+        {points.map((point) => (
+          <li class="flex items-start gap-3 rounded-xl bg-white/10 p-4 backdrop-blur-sm">
+            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+            <span>{point}</span>
+          </li>
         ))}
+      </ul>
+
+      <div class="rounded-2xl border border-white/20 bg-white/5 p-6" data-reveal>
+        <p class="text-sm uppercase tracking-[0.14em] text-amber-300">Cobertura operativa</p>
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          {cities.map((city, idx) => (
+            <div class="rounded-xl border border-white/20 bg-white/10 p-4 text-center font-semibold">
+              <span class="block text-xs text-amber-300">Punto {idx + 1}</span>
+              <span>{city}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
