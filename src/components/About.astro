@@ -1,0 +1,38 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  text: string;
+  mission: string;
+  vision: string;
+}
+
+const { title, subtitle, text, mission, vision } = Astro.props;
+---
+
+<section id="nosotros" class="bg-[#eceef1] py-20">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <SectionHeading title={title} subtitle={subtitle} />
+
+    <div class="mt-10 grid gap-8 lg:grid-cols-2">
+      <div class="space-y-4 text-2xl leading-relaxed text-slate-800" data-reveal>
+        <p>{text}</p>
+      </div>
+
+      <div class="grid gap-6" data-reveal>
+        <article class="rounded-3xl bg-white p-7 shadow-sm">
+          <h3 class="text-5xl font-black uppercase text-[#1b2d5b]">Misión</h3>
+          <p class="mt-4 text-lg text-slate-700">{mission}</p>
+        </article>
+        <article class="rounded-3xl bg-white p-7 shadow-sm">
+          <h3 class="text-5xl font-black uppercase text-[#1b2d5b]">Visión</h3>
+          <p class="mt-4 text-lg text-slate-700">{vision}</p>
+        </article>
+      </div>
+    </div>
+
+    <div data-reveal class="mt-10 h-72 rounded-3xl bg-[url('https://images.unsplash.com/photo-1581092335397-9583eb92d232?auto=format&fit=crop&w=1800&q=80')] bg-cover bg-center"></div>
+  </div>
+</section>

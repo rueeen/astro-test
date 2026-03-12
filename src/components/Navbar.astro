@@ -1,0 +1,67 @@
+---
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  links: NavLink[];
+  companyName: string;
+}
+
+const { links, companyName } = Astro.props;
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+    <a href="#inicio" class="text-2xl font-black tracking-wide text-white">{companyName}</a>
+
+    <button id="menu-toggle" class="rounded-md border border-white/40 p-2 text-white md:hidden" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+
+    <ul class="hidden items-center gap-6 md:flex">
+      {links.map((link) => (
+        <li><a class="text-sm font-semibold text-white transition hover:text-amber-300" href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <div id="mobile-menu" class="mx-4 hidden rounded-2xl border border-slate-200/40 bg-[#0b1831]/95 p-4 shadow-lg md:hidden">
+    <ul class="space-y-2">
+      {links.map((link) => (
+        <li><a class="block rounded-lg px-3 py-2 text-sm text-slate-100 hover:bg-white/10" href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector('#site-header');
+  const toggle = document.querySelector('#menu-toggle');
+  const menu = document.querySelector('#mobile-menu');
+
+  const setHeaderState = () => {
+    if (!header) return;
+    const sticky = window.scrollY > 24;
+    header.classList.toggle('bg-[#0b1831]/90', sticky);
+    header.classList.toggle('backdrop-blur-md', sticky);
+    header.classList.toggle('shadow-lg', sticky);
+  };
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+  });
+
+  document.querySelectorAll('#mobile-menu a').forEach((link) => {
+    link.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      menu?.classList.add('hidden');
+    });
+  });
+
+  setHeaderState();
+  window.addEventListener('scroll', setHeaderState, { passive: true });
+</script>
