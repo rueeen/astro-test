@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  light?: boolean;
+}
+
+const { title, subtitle, light = false } = Astro.props;
+const titleColor = light ? 'text-white' : 'text-[#1b2d5b]';
+const subtitleColor = light ? 'text-amber-300' : 'text-amber-600';
+const barColor = light ? 'bg-amber-400' : 'bg-[#1b2d5b]';
+---
+
+<div class="flex items-start gap-4" data-reveal>
+  <span class:list={['mt-2 h-16 w-2 shrink-0 rounded-full', barColor]}></span>
+  <div>
+    <h2 class:list={['text-4xl font-black leading-tight md:text-6xl', titleColor]}>{title}</h2>
+    {subtitle && <p class:list={['mt-2 text-2xl font-semibold md:text-4xl', subtitleColor]}>{subtitle}</p>}
+  </div>
+</div>
