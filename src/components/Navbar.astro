@@ -10,11 +10,15 @@ interface Props {
 }
 
 const { links, companyName } = Astro.props;
+const logoSrc = '/logo-company.svg';
 ---
 
 <header id="site-header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-    <a href="#inicio" class="text-xl font-extrabold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400">{companyName}</a>
+    <a href="#inicio" class="inline-flex items-center gap-3 text-xl font-extrabold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400">
+      <img src={logoSrc} alt={`Logo de ${companyName}`} class="h-10 w-10 rounded-full bg-white/10 p-1" loading="eager" decoding="async" />
+      <span>{companyName}</span>
+    </a>
 
     <button
       id="menu-toggle"
