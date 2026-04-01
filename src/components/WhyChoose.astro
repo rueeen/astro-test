@@ -30,10 +30,10 @@ const iconPathMap: Record<string, string> = {
           <article
             data-reveal
             class:list={[
-              "group rounded-2xl p-7 shadow-sm ring-1 transition duration-300 hover:-translate-y-1 hover:shadow-xl",
+              "group rounded-2xl p-7 ring-1 transition duration-300 hover:-translate-y-1",
               index % 2 === 0
-                ? "bg-[#12264a] text-slate-100 ring-[#12264a]"
-                : "bg-amber-500 text-slate-900 ring-amber-400",
+                ? "bg-[#12264a] text-slate-100 ring-[#12264a] shadow-md hover:shadow-xl"
+                : "bg-amber-500 text-slate-900 ring-amber-300 ring-2 shadow-2xl scale-[1.03] md:scale-[1.06] hover:scale-[1.08] hover:shadow-[0_20px_45px_rgba(245,158,11,0.45)]",
             ]}
           >
             <svg
