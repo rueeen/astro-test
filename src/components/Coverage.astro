@@ -27,8 +27,8 @@ const regionesNorte = [
       </p>
     </div>
 
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <ul class="space-y-5" data-reveal>
+    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+      <ul class="space-y-5 lg:order-2" data-reveal>
         {
           points.map((point) => (
             <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-all duration-300 hover:bg-white/10">
@@ -40,7 +40,7 @@ const regionesNorte = [
       </ul>
 
       <div
-        class="relative overflow-hidden rounded-3xl border border-white/10 bg-[#12264a]/40 p-8 shadow-2xl"
+        class="relative overflow-hidden rounded-3xl border border-white/10 bg-[#12264a]/40 p-8 shadow-2xl lg:order-1"
         data-reveal
       >
         <p class="absolute left-8 top-8 z-10 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-300/80">
