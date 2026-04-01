@@ -11,68 +11,71 @@ interface Props {
 const { title, text, points } = Astro.props;
 
 const regionesNorte = [
-  { nombre: "Arica", top: "4.5%", left: "52%" },
-  { nombre: "Iquique", top: "10%", left: "51%" },
-  { nombre: "Antofagasta", top: "18.5%", left: "47%" },
-  { nombre: "Calama", top: "16.5%", left: "58%" },
+  { nombre: "Arica", top: "4.5%", left: "53%" },
+  { nombre: "Iquique", top: "10.5%", left: "51%" },
+  { nombre: "Calama", top: "16%", left: "58%" },
+  { nombre: "Antofagasta", top: "18.8%", left: "47%" },
 ];
 ---
 
-<section id="cobertura" class="bg-[#0b1831] py-20 text-slate-100">
-  <div class="mx-auto max-w-7xl px-5 lg:px-8">
-    <div class="mb-16 text-center" data-reveal>
-      <h2 class="text-3xl font-bold md:text-4xl">{title}</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-slate-300">
-        {text}
-      </p>
-    </div>
+<section id="cobertura" class="coverage-grid-bg relative overflow-hidden py-20 text-slate-100">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(43,92,170,0.35),_transparent_56%)]" />
 
-    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-      <ul class="space-y-5 lg:order-2" data-reveal>
-        {
-          points.map((point) => (
-            <li class="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-all duration-300 hover:bg-white/10">
-              <span class="h-3 w-3 shrink-0 rounded-full bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.6)]" />
-              <span class="text-lg font-medium text-slate-200">{point}</span>
-            </li>
-          ))
-        }
-      </ul>
-
+  <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
       <div
-        class="relative overflow-hidden rounded-3xl border border-white/10 bg-[#12264a]/40 p-8 shadow-2xl lg:order-1"
+        class="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#16345f]/40 px-8 py-7 shadow-[0_30px_60px_rgba(0,0,0,0.35)]"
         data-reveal
       >
-        <p class="absolute left-8 top-8 z-10 text-[10px] font-bold uppercase tracking-[0.3em] text-amber-300/80">
+        <p class="mb-5 text-[11px] font-bold uppercase tracking-[0.28em] text-amber-300/90">
           Cobertura Operativa
         </p>
 
-        <div class="relative mx-auto h-[560px] w-[220px]">
-          <Image
-            src={mapaCobertura}
-            alt="Mapa de cobertura de Chile"
-            class="h-full w-full object-contain opacity-90"
-          />
+        <div class="mx-auto max-w-[235px] rounded-xl border border-white/10 bg-[#1d3b67]/60 px-4 py-5">
+          <div class="relative mx-auto h-[560px] w-[185px]">
+            <Image
+              src={mapaCobertura}
+              alt="Mapa de cobertura de Chile"
+              class="h-full w-full object-contain opacity-95 saturate-[1.15]"
+            />
 
+            {
+              regionesNorte.map((reg) => (
+                <div
+                  class="group absolute"
+                  style={`top: ${reg.top}; left: ${reg.left}; transform: translate(-50%, -50%);`}
+                >
+                  <span class="absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-amber-400/35" />
+                  <span class="relative block h-3.5 w-3.5 rounded-full border border-[#102743] bg-amber-400 shadow-[0_0_18px_rgba(251,191,36,0.85)]" />
+
+                  <span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white/95 px-2 py-1 text-xs font-semibold text-[#0b1831] opacity-0 shadow-lg transition group-hover:opacity-100">
+                    {reg.nombre}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-8" data-reveal>
+        <div class="text-center lg:text-left">
+          <h2 class="text-3xl font-bold leading-tight md:text-5xl">{title}</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-300 lg:mx-0">
+            {text}
+          </p>
+        </div>
+
+        <ul class="space-y-4">
           {
-            regionesNorte.map((reg) => (
-              <div
-                class="group absolute cursor-help"
-                style={`top: ${reg.top}; left: ${reg.left}; transform: translate(-50%, -50%);`}
-              >
-                <div class="relative flex items-center justify-center">
-                  <div class="absolute h-4 w-4 animate-ping rounded-full bg-amber-400/40" />
-                  <div class="relative h-2.5 w-2.5 rounded-full border border-[#0b1831] bg-amber-500 shadow-xl transition-transform group-hover:scale-125" />
-                </div>
-
-                <div class="pointer-events-none absolute bottom-full left-1/2 mb-4 -translate-x-1/2 whitespace-nowrap rounded-lg bg-white px-4 py-2 text-sm font-bold text-[#0b1831] opacity-0 shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:visible group-hover:-translate-y-2 group-hover:opacity-100">
-                  {reg.nombre}
-                  <div class="absolute left-1/2 top-full -translate-x-1/2 border-[6px] border-transparent border-t-white" />
-                </div>
-              </div>
+            points.map((point) => (
+              <li class="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.07] p-5 shadow-[0_10px_35px_rgba(2,6,23,0.4)] backdrop-blur-sm">
+                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(252,211,77,0.95)]" />
+                <span class="text-xl font-semibold leading-snug text-slate-200">{point}</span>
+              </li>
             ))
           }
-        </div>
+        </ul>
       </div>
     </div>
   </div>
