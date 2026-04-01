@@ -20,11 +20,3 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-
-.coverage-grid-bg {
-  background-color: #071d46;
-  background-image:
-    linear-gradient(rgba(132, 157, 206, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(132, 157, 206, 0.22) 1px, transparent 1px);
-  background-size: 18px 18px;
-}
