@@ -1,6 +1,6 @@
 ---
-import '../styles/global.css';
-import logoImage from '../assets/logo.png';
+import "../styles/global.css";
+import logoImage from "../assets/logo.png";
 
 interface Props {
   title: string;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const ogImage = '/favicon.svg';
+const ogImage = "/favicon.svg";
 ---
 
 <!doctype html>
@@ -25,23 +25,31 @@ const ogImage = '/favicon.svg';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="watermark-bg bg-slate-50 text-slate-800 antialiased relative min-h-screen">
+  <body
+    class="watermark-bg bg-slate-50 text-slate-800 antialiased relative min-h-screen"
+  >
     <slot />
 
     <style define:vars={{ logoUrl: `url(${logoImage.src})` }}>
       .watermark-bg::before {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
         z-index: -1;
         pointer-events: none;
         background-image: var(--logoUrl);
-        background-size: 170px;
+
+        /* 1. Ajusta el tamaño si lo prefieres un poco más grande */
+        background-size: 200px;
+
         background-repeat: repeat;
         background-position: center;
         background-attachment: fixed;
-        opacity: 0.035;
-        filter: grayscale(100%);
+
+        opacity: 0.25;
+
+        /* 3. Opcional: Baja el grayscale al 80% o 50% si quieres que se note el color */
+        filter: grayscale(80%);
       }
     </style>
   </body>
