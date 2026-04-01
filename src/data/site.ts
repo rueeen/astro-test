@@ -48,19 +48,6 @@ export const siteData = {
     subtitle: 'Soluciones integrales para un futuro productivo',
     items: [
       {
-        id: 'aseo',
-        title: 'Aseo industrial',
-        subtitle: 'Estándares mineros de limpieza',
-        intro:
-          'Nos especializamos en ambientes de alta exigencia donde la limpieza es sinónimo de seguridad operativa.',
-        details: [
-          'Limpieza de infraestructura: aseo técnico de plantas de producción, bodegas, talleres y superficies industriales.',
-          'Habitabilidad: mantenimiento impecable de campamentos mineros, casinos y oficinas administrativas.',
-          'Maquinaria especializada: uso de hidrolavadoras industriales, barredoras mecánicas y aspiradoras de alto tonelaje para desengrasado y despeje de áreas críticas.'
-        ],
-        highlight: 'Un entorno limpio es un entorno seguro.'
-      },
-      {
         id: 'energia',
         title: 'Energía y paneles solares',
         intro:
@@ -79,6 +66,19 @@ export const siteData = {
           'Mantenimiento general: pintura industrial, gasfitería y reparaciones locativas.',
           'Electricidad y tecnología: instalación de cámaras de seguridad y resolución de problemas eléctricos con personal certificado.'
         ]
+      },
+      {
+        id: 'aseo',
+        title: 'Aseo industrial',
+        subtitle: 'Estándares mineros de limpieza',
+        intro:
+          'Nos especializamos en ambientes de alta exigencia donde la limpieza es sinónimo de seguridad operativa.',
+        details: [
+          'Limpieza de infraestructura: aseo técnico de plantas de producción, bodegas, talleres y superficies industriales.',
+          'Habitabilidad: mantenimiento impecable de campamentos mineros, casinos y oficinas administrativas.',
+          'Maquinaria especializada: uso de hidrolavadoras industriales, barredoras mecánicas y aspiradoras de alto tonelaje para desengrasado y despeje de áreas críticas.'
+        ],
+        highlight: 'Un entorno limpio es un entorno seguro.'
       }
     ]
   },
