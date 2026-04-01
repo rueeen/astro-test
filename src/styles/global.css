@@ -2,12 +2,21 @@
 
 :root {
   color-scheme: light;
+  --color-primary: #003366;
+  --color-accent: #ffaa00;
+  --color-neutral: #d9d9d9;
+  --color-support: #a3d9a5;
 }
 
 body {
-  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
   position: relative;
   isolation: isolate;
+}
+
+h1, h2, h3, h4, h5, h6, button, .font-brand {
+  font-family: 'Montserrat', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
 }
 
 [data-reveal] {

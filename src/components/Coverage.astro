@@ -18,20 +18,20 @@ const regionesNorte = [
 ];
 ---
 
-<section id="cobertura" class="relative overflow-hidden py-20 text-slate-100">
-  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(43,92,170,0.35),_transparent_56%)]" />
+<section id="cobertura" class="relative overflow-hidden bg-[#003366] py-20 text-slate-100">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(163,217,165,0.28),_transparent_56%)]" />
 
   <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
     <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
       <div
-        class="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#16345f]/40 px-8 py-7 shadow-[0_30px_60px_rgba(0,0,0,0.35)]"
+        class="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#003366]/60 px-8 py-7 shadow-[0_30px_60px_rgba(0,0,0,0.35)]"
         data-reveal
       >
-        <p class="mb-5 text-[11px] font-bold uppercase tracking-[0.28em] text-amber-300/90">
+        <p class="mb-5 text-[11px] font-bold uppercase tracking-[0.28em] text-[#ffaa00]/90">
           Cobertura Operativa
         </p>
 
-        <div class="mx-auto max-w-[260px] rounded-xl border border-white/10 bg-[#1d3b67]/60 px-4 py-5">
+        <div class="mx-auto max-w-[260px] rounded-xl border border-white/10 bg-[#003366]/70 px-4 py-5">
           <div class="relative mx-auto h-[620px] w-[205px]">
             <Image
               src={mapaCobertura}
@@ -45,10 +45,10 @@ const regionesNorte = [
                   class="group absolute"
                   style={`top: ${reg.top}; left: ${reg.left}; transform: translate(-50%, -50%);`}
                 >
-                  <span class="absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-amber-400/35" />
-                  <span class="relative block h-3.5 w-3.5 rounded-full border border-[#102743] bg-amber-400 shadow-[0_0_18px_rgba(251,191,36,0.85)]" />
+                  <span class="absolute h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-[#ffaa00]/35" />
+                  <span class="relative block h-3.5 w-3.5 rounded-full border border-[#003366] bg-[#ffaa00] shadow-[0_0_18px_rgba(255,170,0,0.85)]" />
 
-                  <span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white/95 px-2 py-1 text-xs font-semibold text-[#0b1831] opacity-0 shadow-lg transition group-hover:opacity-100">
+                  <span class="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-white/95 px-2 py-1 text-xs font-semibold text-[#003366] opacity-0 shadow-lg transition group-hover:opacity-100">
                     {reg.nombre}
                   </span>
                 </div>
@@ -70,7 +70,7 @@ const regionesNorte = [
           {
             points.map((point) => (
               <li class="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.07] p-5 shadow-[0_10px_35px_rgba(2,6,23,0.4)] backdrop-blur-sm">
-                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_16px_rgba(252,211,77,0.95)]" />
+                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-[#ffaa00] shadow-[0_0_16px_rgba(252,211,77,0.95)]" />
                 <span class="text-xl font-semibold leading-snug text-slate-200">{point}</span>
               </li>
             ))

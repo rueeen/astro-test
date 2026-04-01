@@ -5,7 +5,7 @@ export const siteData = {
     'Limpieza, seguridad y energía para minería e industria, con respuesta operativa 24/7 en el Norte Grande.',
   hero: {
     heading: 'EIRP+',
-    subheading: 'Soluciones integrales para la industria',
+    subheading: 'Soluciones Limpias para Obras Seguras',
     supportingText:
       'Limpieza, seguridad y energía para minería e industria, con respuesta operativa 24/7 en el Norte Grande.',
     chips: ['Limpieza', 'Seguridad', 'Energía']
@@ -93,7 +93,7 @@ export const siteData = {
     cities: ['Arica', 'Iquique', 'Calama', 'Antofagasta']
   },
   finalCta: {
-    title: 'Atención 24/7 para minería e industria',
+    title: 'Soluciones Limpias para Obras Seguras',
     text: 'Conversemos sobre la continuidad operativa de tu empresa y la mejor solución para tus instalaciones.'
   },
   contact: {
