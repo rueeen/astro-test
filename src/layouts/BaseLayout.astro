@@ -1,7 +1,6 @@
 ---
 import '../styles/global.css';
-import { Image } from 'astro:assets';
-import logoImage from '../assets/logo.png'; // Importamos el logo
+import logoImage from '../assets/logo.png';
 
 interface Props {
   title: string;
@@ -26,20 +25,22 @@ const ogImage = '/favicon.svg';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-50 text-slate-800 antialiased relative min-h-screen">
-    
-    <!-- Capa del patrón de marca de agua -->
-    <div class="watermark-bg pointer-events-none fixed inset-0 -z-10 opacity-[0.03]"></div>
-
+  <body class="watermark-bg bg-slate-50 text-slate-800 antialiased relative min-h-screen">
     <slot />
 
     <style define:vars={{ logoUrl: `url(${logoImage.src})` }}>
-      .watermark-bg {
+      .watermark-bg::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
         background-image: var(--logoUrl);
-        /* Tamaño de cada logo repetido */
-        background-size: 240px; 
+        background-size: 170px;
         background-repeat: repeat;
-        /* Grayscale ayuda a que no distraiga del contenido */
+        background-position: center;
+        background-attachment: fixed;
+        opacity: 0.035;
         filter: grayscale(100%);
       }
     </style>
