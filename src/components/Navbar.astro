@@ -17,81 +17,60 @@ const { links, companyName } = Astro.props;
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] transition-all duration-500 ease-in-out py-3 md:py-4"
 >
-  <nav
-    class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8"
-  >
-    <a
-      href="#inicio"
-      class="inline-flex items-center gap-3 text-xl font-extrabold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffaa00]"
-    >
+  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10">
+    
+    <a href="#inicio" class="flex items-center gap-3 group">
       <Image
         src={logoImage}
-        alt={`Logo de ${companyName}`}
-        class="h-10 w-auto"
+        alt={companyName}
+        class="h-10 w-auto object-contain md:h-16 transition-transform duration-300 group-hover:scale-105"
       />
-
-      <span>{companyName}</span>
+      <span class="text-xl font-black tracking-tighter text-white sm:block hidden md:text-2xl">
+        {companyName}
+      </span>
     </a>
 
-    <button
-      id="menu-toggle"
-      class="inline-flex items-center justify-center rounded-md border border-white/30 p-2 text-white md:hidden"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-        ><path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.8"
-          d="M4 6h16M4 12h16M4 18h16"></path></svg
-      >
-    </button>
+    <div class="flex items-center gap-6 lg:gap-10">
+      <ul class="hidden items-center gap-6 md:flex lg:gap-8">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                class="text-xs font-bold text-white transition-colors hover:text-[#ffaa00] lg:text-sm"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
-    <ul class="hidden items-center gap-7 md:flex">
-      {
-        links.map((link) => (
-          <li>
-            <a
-              class="text-sm font-medium text-white transition hover:text-[#ffaa00] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffaa00]"
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-      <li>
-        <a
-          href="#contacto"
-          class="rounded-full bg-[#ffaa00] px-5 py-2.5 text-sm font-semibold text-[#003366] transition hover:bg-[#ffd166] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffaa00]"
-          >Solicitar cotización</a
-        >
-      </li>
-    </ul>
+      <a
+        href="#contacto"
+        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm"
+      >
+        Solicitar cotización
+      </a>
+
+      <button id="menu-toggle" class="text-white md:hidden p-1.5 focus:outline-none">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
   </nav>
 
-  {/* Menú móvil */}
-  <div
-    id="mobile-menu"
-    class="mx-4 hidden rounded-2xl border border-[#e6f0ff]/40 bg-[#003366]/95 p-4 shadow-lg md:hidden"
-  >
-    <ul class="space-y-3">
-      {
-        links.map((link) => (
-          <li>
-            <a
-              class="block rounded-lg px-3 py-2 text-sm text-slate-100 hover:bg-[#a3d9a5]/20"
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
+  <div id="mobile-menu" class="hidden mx-4 mt-2 rounded-2xl bg-[#00264d] p-6 shadow-2xl md:hidden border border-white/10">
+    <ul class="flex flex-col gap-4 text-center">
+      {links.map((link) => (
+        <li><a class="text-lg font-bold text-white py-1 block" href={link.href}>{link.label}</a></li>
+      ))}
+      <li class="pt-3 border-t border-white/5 font-bold">
+        <a href="#contacto" class="block rounded-full bg-[#ffaa00] py-3 text-[#003366]">Solicitar cotización</a>
+      </li>
     </ul>
   </div>
 </header>
@@ -101,27 +80,25 @@ const { links, companyName } = Astro.props;
   const toggle = document.querySelector("#menu-toggle");
   const menu = document.querySelector("#mobile-menu");
 
-  const setHeaderState = () => {
+  const updateHeader = () => {
     if (!header) return;
-    const sticky = window.scrollY > 24;
-    header.classList.toggle("bg-[#003366]/95", sticky);
-    header.classList.toggle("backdrop-blur-md", sticky);
-    header.classList.toggle("shadow-lg", sticky);
+    const isScrolled = window.scrollY > 20;
+
+    if (isScrolled) {
+      // Estado Scroll: Muy compacto
+      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2");
+      header.classList.remove("py-3", "md:py-4", "bg-[#003366]");
+    } else {
+      // Estado Inicial: Compacto pero elegante
+      header.classList.add("py-3", "md:py-4", "bg-[#003366]");
+      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2");
+    }
   };
 
   toggle?.addEventListener("click", () => {
-    const expanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", String(!expanded));
     menu?.classList.toggle("hidden");
   });
 
-  document.querySelectorAll("#mobile-menu a").forEach((link) => {
-    link.addEventListener("click", () => {
-      toggle?.setAttribute("aria-expanded", "false");
-      menu?.classList.add("hidden");
-    });
-  });
-
-  setHeaderState();
-  window.addEventListener("scroll", setHeaderState, { passive: true });
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
 </script>
