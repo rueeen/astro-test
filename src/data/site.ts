@@ -98,7 +98,7 @@ export const siteData = {
   },
   contact: {
     address: 'José Antonio Aldunate 2811, Arica',
-    email: 'contacto.industrialplus@gmail.com',
+    email: 'Empresas.higiene.eirp@gmail.com',
     phone: '(+56) 9 8835 5559',
     phoneHref: 'tel:+56988355559',
     whatsappHref: 'https://wa.me/56988355559'
