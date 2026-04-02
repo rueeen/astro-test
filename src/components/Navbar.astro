@@ -17,16 +17,21 @@ const { links, companyName } = Astro.props;
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] transition-all duration-500 ease-in-out py-3 md:py-4" data-scrolled="false"
+  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] py-3 transition-all duration-500 ease-in-out md:py-4"
+  data-scrolled="false"
 >
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10">
-    <a href="#inicio" class="flex items-center gap-3 group">
+    <a href="#inicio" class="group flex items-center gap-3">
       <Image
         src={logoImage}
         alt={companyName}
-        class="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105 md:h-16" data-logo
+        class="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105 md:h-16"
+        data-logo
       />
-      <span class="hidden text-xl font-black tracking-tighter text-white transition-all duration-300 sm:block md:text-2xl" data-brand>
+      <span
+        class="hidden text-xl font-black tracking-tighter text-white transition-all duration-300 sm:block md:text-2xl"
+        data-brand
+      >
         {companyName}
       </span>
     </a>
@@ -37,7 +42,8 @@ const { links, companyName } = Astro.props;
           links.map((link) => (
             <li>
               <a
-                class="text-xs font-bold text-white transition-all hover:text-[#ffaa00] lg:text-sm" data-nav-link
+                class="text-xs font-bold text-white transition-all hover:text-[#ffaa00] lg:text-sm"
+                data-nav-link
                 href={link.href}
               >
                 {link.label}
@@ -49,7 +55,8 @@ const { links, companyName } = Astro.props;
 
       <a
         href="#contacto"
-        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm" data-cta
+        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm"
+        data-cta
       >
         Solicitar cotización
       </a>
@@ -59,22 +66,38 @@ const { links, companyName } = Astro.props;
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Abrir menú"
-        class="text-white md:hidden p-1.5 focus:outline-none"
+        class="p-1.5 text-white focus:outline-none md:hidden"
       >
         <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
         </svg>
       </button>
     </div>
   </nav>
 
-  <div id="mobile-menu" class="hidden mx-4 mt-2 rounded-2xl bg-[#00264d] p-6 shadow-2xl md:hidden border border-white/10">
+  <div
+    id="mobile-menu"
+    class="mx-4 mt-2 hidden rounded-2xl border border-white/10 bg-[#00264d] p-6 shadow-2xl md:hidden"
+  >
     <ul class="flex flex-col gap-4 text-center">
-      {links.map((link) => (
-        <li><a class="text-lg font-bold text-white py-1 block" href={link.href}>{link.label}</a></li>
-      ))}
-      <li class="pt-3 border-t border-white/5 font-bold">
-        <a href="#contacto" class="block rounded-full bg-[#ffaa00] py-3 text-[#003366]">Solicitar cotización</a>
+      {
+        links.map((link) => (
+          <li>
+            <a class="block py-1 text-lg font-bold text-white" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="border-t border-white/5 pt-3 font-bold">
+        <a href="#contacto" class="block rounded-full bg-[#ffaa00] py-3 text-[#003366]">
+          Solicitar cotización
+        </a>
       </li>
     </ul>
   </div>
@@ -85,44 +108,26 @@ const { links, companyName } = Astro.props;
   const toggle = document.querySelector("#menu-toggle");
   const menu = document.querySelector("#mobile-menu");
   const menuLinks = menu?.querySelectorAll("a");
-  const logo = header?.querySelector("[data-logo]");
-  const brand = header?.querySelector("[data-brand]");
-  const navLinks = header?.querySelectorAll("[data-nav-link]");
-  const cta = header?.querySelector("[data-cta]");
 
   const updateHeader = () => {
     if (!header) return;
+
     const isScrolled = window.scrollY > 20;
 
     if (isScrolled) {
       header.dataset.scrolled = "true";
-      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2", "md:py-2");
-      header.classList.remove("py-3", "md:py-4", "bg-[#003366]");
-      logo?.classList.add("h-9", "md:h-12");
-      logo?.classList.remove("h-10", "md:h-16");
-      brand?.classList.add("md:text-xl");
-      brand?.classList.remove("md:text-2xl");
-      navLinks?.forEach((link) => link.classList.add("lg:text-xs"));
-      navLinks?.forEach((link) => link.classList.remove("lg:text-sm"));
-      cta?.classList.add("py-2", "lg:px-7");
-      cta?.classList.remove("py-2.5", "lg:px-8");
+      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl");
+      header.classList.remove("bg-[#003366]");
     } else {
       header.dataset.scrolled = "false";
-      header.classList.add("py-3", "md:py-4", "bg-[#003366]");
-      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2", "md:py-2");
-      logo?.classList.add("h-10", "md:h-16");
-      logo?.classList.remove("h-9", "md:h-12");
-      brand?.classList.add("md:text-2xl");
-      brand?.classList.remove("md:text-xl");
-      navLinks?.forEach((link) => link.classList.add("lg:text-sm"));
-      navLinks?.forEach((link) => link.classList.remove("lg:text-xs"));
-      cta?.classList.add("py-2.5", "lg:px-8");
-      cta?.classList.remove("py-2", "lg:px-7");
+      header.classList.add("bg-[#003366]");
+      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl");
     }
   };
 
   toggle?.addEventListener("click", () => {
     const isOpen = !menu?.classList.contains("hidden");
+
     menu?.classList.toggle("hidden");
     toggle.setAttribute("aria-expanded", String(!isOpen));
     toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
