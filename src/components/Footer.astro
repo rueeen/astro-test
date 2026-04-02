@@ -1,13 +1,50 @@
 ---
-interface Props {
-  companyName: string;
+interface ContactInfo {
+  address: string;
+  email: string;
+  phone: string;
+  phoneHref: string;
 }
 
-const { companyName } = Astro.props;
+interface Props {
+  companyName: string;
+  contact: ContactInfo;
+}
+
+const { companyName, contact } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-[#003366] py-8 text-center text-sm text-[#e6f0ff]">
-  <p>
-    {companyName} · Soluciones Limpias para Obras Seguras.
-  </p>
+<footer class="border-t border-white/10 bg-gradient-to-b from-[#01264d] to-[#001a33] text-[#e6f0ff]">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-10 md:grid-cols-[1.5fr_1fr_1fr] md:items-start">
+    <div>
+      <p class="text-lg font-semibold tracking-wide">{companyName}</p>
+      <p class="mt-2 max-w-md text-sm leading-relaxed text-[#c7dbff]">
+        Soluciones Limpias para Obras Seguras. Atención profesional para minería e industria con enfoque en
+        continuidad operacional y seguridad.
+      </p>
+      <p class="mt-4 text-xs uppercase tracking-[0.2em] text-[#9fc2ff]">Desarrollado por Ruben Valencia</p>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#9fc2ff]">Contacto</p>
+      <ul class="mt-3 space-y-2 text-sm text-[#d9e8ff]">
+        <li>
+          <a class="transition hover:text-white" href={contact.phoneHref}>{contact.phone}</a>
+        </li>
+        <li>
+          <a class="transition hover:text-white" href={`mailto:${contact.email}`}>{contact.email}</a>
+        </li>
+        <li>{contact.address}</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#9fc2ff]">Legal</p>
+      <ul class="mt-3 space-y-2 text-sm text-[#d9e8ff]">
+        <li>© {currentYear} {companyName}. Todos los derechos reservados.</li>
+        <li>Uso de marca y contenidos protegido por derechos de autor.</li>
+      </ul>
+    </div>
+  </div>
 </footer>
