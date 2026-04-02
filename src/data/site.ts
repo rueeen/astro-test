@@ -1,10 +1,10 @@
 export const siteData = {
-  companyName: 'EIRP+',
-  title: 'EIRP+ | Soluciones integrales para la industria',
+  companyName: 'Higiene Industrial Plus EIRP',
+  title: 'Higiene Industrial Plus EIRP | Soluciones integrales para la industria',
   description:
     'Limpieza, seguridad y energía para minería e industria, con respuesta operativa 24/7 en el Norte Grande.',
   hero: {
-    heading: 'EIRP+',
+    heading: 'Higiene Industrial Plus EIRP',
     subheading: 'Soluciones Limpias para Obras Seguras',
     supportingText:
       'Limpieza, seguridad y energía para minería e industria, con respuesta operativa 24/7 en el Norte Grande.',
@@ -20,7 +20,7 @@ export const siteData = {
   about: {
     title: '¿Quiénes somos?',
     subtitle: 'Más que proveedores, socios estratégicos en terreno.',
-    text: 'EIRP+ nace de una necesidad crítica en la minería y la industria nacional: la falta de integración. Diseñamos una propuesta para unificar la gestión de higiene industrial, mantenimiento general y obras civiles, entregando continuidad operativa con respuesta eficiente, segura y responsable.',
+    text: 'Higiene Industrial Plus EIRP nace de una necesidad crítica en la minería y la industria nacional: la falta de integración. Diseñamos una propuesta para unificar la gestión de higiene industrial, mantenimiento general y obras civiles, entregando continuidad operativa con respuesta eficiente, segura y responsable.',
     mission:
       'Brindar soluciones integrales de higiene, mantenimiento y construcción a la industria minera, portuaria y privada, garantizando continuidad operativa mediante un servicio eficiente, seguro y con responsabilidad ambiental.',
     vision:
@@ -51,7 +51,7 @@ export const siteData = {
         id: 'energia',
         title: 'Energía y paneles solares',
         intro:
-          'Recuperamos tu eficiencia energética. La suciedad en los paneles solares puede reducir la eficiencia hasta en un 30%. En EIRP+ somos especialistas en mantenimiento de plantas fotovoltaicas.',
+          'Recuperamos tu eficiencia energética. La suciedad en los paneles solares puede reducir la eficiencia hasta en un 30%. En Higiene Industrial Plus EIRP somos especialistas en mantenimiento de plantas fotovoltaicas.',
         details: [
           'Tecnología de vanguardia: procesos de limpieza que no dañan la superficie del panel, garantizando la vida útil del activo.',
           'Beneficio directo: maximizamos la captación de energía y el retorno de su inversión.'
@@ -84,7 +84,7 @@ export const siteData = {
   },
   coverage: {
     title: 'Seguridad y cobertura',
-    text: 'En EIRP+, la seguridad no es negociable. Nuestro compromiso con la vida y la integridad de nuestros colaboradores y clientes es total.',
+    text: 'En Higiene Industrial Plus EIRP, la seguridad no es negociable. Nuestro compromiso con la vida y la integridad de nuestros colaboradores y clientes es total.',
     points: [
       'Récord de seguridad: operaciones con enfoque cero accidentes.',
       'Personal calificado: equipo técnico con certificaciones al día y prevencionista de riesgos dedicado.',
