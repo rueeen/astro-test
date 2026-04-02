@@ -1,6 +1,6 @@
-# Landing EIRP+ (Astro + Tailwind)
+# Landing Higiene Industrial Plus EIRP (Astro + Tailwind)
 
-Landing corporativa single-page para EIRP+, enfocada en conversión para industria y minería.
+Landing corporativa single-page para Higiene Industrial Plus EIRP, enfocada en conversión para industria y minería.
 
 ## Crear proyecto e instalar dependencias
 
