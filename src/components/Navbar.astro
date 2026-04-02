@@ -17,16 +17,16 @@ const { links, companyName } = Astro.props;
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] transition-all duration-500 ease-in-out py-3 md:py-4"
+  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] transition-all duration-500 ease-in-out py-3 md:py-4" data-scrolled="false"
 >
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10">
     <a href="#inicio" class="flex items-center gap-3 group">
       <Image
         src={logoImage}
         alt={companyName}
-        class="h-10 w-auto object-contain md:h-16 transition-transform duration-300 group-hover:scale-105"
+        class="h-10 w-auto object-contain transition-all duration-300 group-hover:scale-105 md:h-16" data-logo
       />
-      <span class="text-xl font-black tracking-tighter text-white sm:block hidden md:text-2xl">
+      <span class="hidden text-xl font-black tracking-tighter text-white transition-all duration-300 sm:block md:text-2xl" data-brand>
         {companyName}
       </span>
     </a>
@@ -37,7 +37,7 @@ const { links, companyName } = Astro.props;
           links.map((link) => (
             <li>
               <a
-                class="text-xs font-bold text-white transition-colors hover:text-[#ffaa00] lg:text-sm"
+                class="text-xs font-bold text-white transition-all hover:text-[#ffaa00] lg:text-sm" data-nav-link
                 href={link.href}
               >
                 {link.label}
@@ -49,7 +49,7 @@ const { links, companyName } = Astro.props;
 
       <a
         href="#contacto"
-        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm"
+        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm" data-cta
       >
         Solicitar cotización
       </a>
@@ -85,17 +85,39 @@ const { links, companyName } = Astro.props;
   const toggle = document.querySelector("#menu-toggle");
   const menu = document.querySelector("#mobile-menu");
   const menuLinks = menu?.querySelectorAll("a");
+  const logo = header?.querySelector("[data-logo]");
+  const brand = header?.querySelector("[data-brand]");
+  const navLinks = header?.querySelectorAll("[data-nav-link]");
+  const cta = header?.querySelector("[data-cta]");
 
   const updateHeader = () => {
     if (!header) return;
     const isScrolled = window.scrollY > 20;
 
     if (isScrolled) {
-      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2");
+      header.dataset.scrolled = "true";
+      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2", "md:py-2");
       header.classList.remove("py-3", "md:py-4", "bg-[#003366]");
+      logo?.classList.add("h-9", "md:h-12");
+      logo?.classList.remove("h-10", "md:h-16");
+      brand?.classList.add("md:text-xl");
+      brand?.classList.remove("md:text-2xl");
+      navLinks?.forEach((link) => link.classList.add("lg:text-xs"));
+      navLinks?.forEach((link) => link.classList.remove("lg:text-sm"));
+      cta?.classList.add("py-2", "lg:px-7");
+      cta?.classList.remove("py-2.5", "lg:px-8");
     } else {
+      header.dataset.scrolled = "false";
       header.classList.add("py-3", "md:py-4", "bg-[#003366]");
-      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2");
+      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl", "py-2", "md:py-2");
+      logo?.classList.add("h-10", "md:h-16");
+      logo?.classList.remove("h-9", "md:h-12");
+      brand?.classList.add("md:text-2xl");
+      brand?.classList.remove("md:text-xl");
+      navLinks?.forEach((link) => link.classList.add("lg:text-sm"));
+      navLinks?.forEach((link) => link.classList.remove("lg:text-xs"));
+      cta?.classList.add("py-2.5", "lg:px-8");
+      cta?.classList.remove("py-2", "lg:px-7");
     }
   };
 
