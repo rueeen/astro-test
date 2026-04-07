@@ -12,7 +12,7 @@ import WhyChoose from '../components/WhyChoose.astro';
 import { siteData } from '../data/site';
 ---
 
-<BaseLayout title={siteData.title} description={siteData.description}>
+<BaseLayout title={siteData.title} description={siteData.description} keywords={siteData.seo.keywords}>
   <Navbar links={siteData.navLinks} companyName={siteData.companyName} />
   <main>
     <Hero {...siteData.hero} whatsappHref={siteData.contact.whatsappHref} />

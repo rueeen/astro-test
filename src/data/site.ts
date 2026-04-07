@@ -1,8 +1,19 @@
 export const siteData = {
   companyName: 'Higiene Industrial Plus EIRP',
-  title: 'Higiene Industrial Plus EIRP | Soluciones integrales para la industria',
+  title: 'Higiene industrial EIRP Plus (EIRP+) | Soluciones integrales para minería e industria',
   description:
-    'Limpieza, seguridad y energía para minería e industria, con respuesta operativa 24/7 en el Norte Grande.',
+    'Higiene industrial en Arica y Norte Grande. En Higiene Industrial Plus EIRP (EIRP Plus / EIRP+) entregamos limpieza técnica, mantenimiento y energía para minería e industria con respuesta 24/7.',
+  seo: {
+    keywords: [
+      'higiene industrial',
+      'higiene industrial eirp',
+      'higiene industrial plus eirp',
+      'eirp plus',
+      'eirp+',
+      'aseo industrial',
+      'mantenimiento industrial'
+    ]
+  },
   hero: {
     heading: 'Higiene Industrial Plus EIRP',
     subheading: 'Soluciones Limpias para Obras Seguras',
@@ -20,7 +31,7 @@ export const siteData = {
   about: {
     title: '¿Quiénes somos?',
     subtitle: 'Más que proveedores, socios estratégicos en terreno.',
-    text: 'Higiene Industrial Plus EIRP nace de una necesidad crítica en la minería y la industria nacional: la falta de integración. Diseñamos una propuesta para unificar la gestión de higiene industrial, mantenimiento general y obras civiles, entregando continuidad operativa con respuesta eficiente, segura y responsable.',
+    text: 'Higiene Industrial Plus EIRP, también conocida como EIRP Plus o EIRP+, nace de una necesidad crítica en la minería y la industria nacional: la falta de integración. Diseñamos una propuesta para unificar la gestión de higiene industrial, mantenimiento general y obras civiles, entregando continuidad operativa con respuesta eficiente, segura y responsable.',
     mission:
       'Brindar soluciones integrales de higiene, mantenimiento y construcción a la industria minera, portuaria y privada, garantizando continuidad operativa mediante un servicio eficiente, seguro y con responsabilidad ambiental.',
     vision:
