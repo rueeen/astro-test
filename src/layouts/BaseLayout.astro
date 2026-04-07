@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import logoImage from "../assets/logo.png";
+import { siteData } from "../data/site";
 
 interface Props {
   title: string;
@@ -9,8 +10,17 @@ interface Props {
 }
 
 const { title, description, keywords = [] } = Astro.props;
-const ogImage = "/favicon.svg";
+const siteUrl = Astro.site?.toString() ?? Astro.url.origin;
+const logoUrl = new URL(logoImage.src, siteUrl).toString();
+const ogImage = logoUrl;
 const canonicalUrl = Astro.url.href;
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteData.companyName,
+  url: siteUrl,
+  logo: logoUrl,
+};
 ---
 
 <!doctype html>
@@ -32,7 +42,9 @@ const canonicalUrl = Astro.url.href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <link rel="icon" type="image/png" href={logoImage.src} />
+    <link rel="apple-touch-icon" href={logoImage.src} />
     <title>{title}</title>
   </head>
   <body
