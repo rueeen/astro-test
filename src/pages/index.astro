@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import About from '../components/About.astro';
+import Careers from '../components/Careers.astro';
 import ContactSection from '../components/ContactSection.astro';
 import Coverage from '../components/Coverage.astro';
 import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
@@ -20,6 +21,7 @@ import { siteData } from '../data/site';
     <WhyChoose reasons={siteData.reasons} />
     <Services {...siteData.services} />
     <Coverage {...siteData.coverage} />
+    <Careers {...siteData.careers} />
 
     <ContactSection title={siteData.finalCta.title} text={siteData.finalCta.text} contact={siteData.contact} />
   </main>
@@ -29,6 +31,28 @@ import { siteData } from '../data/site';
 </BaseLayout>
 
 <script>
+  // Auto-stagger: elements that share a parent get an increasing
+  // transition-delay so groups (card grids, lists) cascade in
+  // instead of fading together as one block.
+  const STAGGER_STEP_MS = 90;
+  const STAGGER_MAX_MS = 450;
+
+  const revealGroups = new Map<Element, Element[]>();
+  document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+    const parent = el.parentElement;
+    if (!parent) return;
+    const siblings = revealGroups.get(parent) ?? [];
+    siblings.push(el);
+    revealGroups.set(parent, siblings);
+  });
+
+  revealGroups.forEach((siblings) => {
+    siblings.forEach((el, index) => {
+      const delay = Math.min(index * STAGGER_STEP_MS, STAGGER_MAX_MS);
+      (el as HTMLElement).style.setProperty("--reveal-delay", `${delay}ms`);
+    });
+  });
+
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -49,5 +73,28 @@ import { siteData } from '../data/site';
     document
       .querySelectorAll("[data-reveal]")
       .forEach((element) => element.classList.add("revealed"));
+  }
+
+  // Coverage map pins pop in (staggered via --pin-delay) once the
+  // map card scrolls into view.
+  const pins = document.querySelectorAll<HTMLElement>("[data-pin]");
+  if (pins.length) {
+    if ("IntersectionObserver" in window) {
+      const pinObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              pins.forEach((pin) => pin.classList.add("popped"));
+              pinObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      const mapCard = pins[0].closest("[data-reveal]");
+      if (mapCard) pinObserver.observe(mapCard);
+    } else {
+      pins.forEach((pin) => pin.classList.add("popped"));
+    }
   }
 </script>
