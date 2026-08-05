@@ -2,16 +2,19 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
+// GitHub Actions define la variable de entorno CI=true automáticamente.
+// La usamos para distinguir el build de vista previa (GitHub Pages)
+// del build de producción (tu hosting real en eirp.cl).
+const isGithubPagesPreview = process.env.CI === 'true';
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  // 1. Cambia el sitio a tu dominio real
-  site: 'https://eirp.cl',
-  // 2. IMPORTANTE: Cambia el base a '/' (raíz)
-  base: '/',
+  site: isGithubPagesPreview ? 'https://rueeen.github.io' : 'https://eirp.cl',
+  base: isGithubPagesPreview ? '/astro-test/' : '/',
   build: {
-    assets: 'assets' // <--- AGREGA ESTA LÍNEA
+    assets: 'assets'
   }
 });

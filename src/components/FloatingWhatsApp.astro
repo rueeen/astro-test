@@ -13,6 +13,11 @@ const { href } = Astro.props;
   aria-label="Abrir WhatsApp"
   class="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-xl transition hover:scale-105 hover:bg-green-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-300"
 >
+  <span
+    class="pointer-events-none absolute inset-0 rounded-full bg-green-400"
+    data-whatsapp-ring
+    aria-hidden="true"
+  ></span>
   <svg
     class="h-7 w-7"
     viewBox="0 0 32 32"
