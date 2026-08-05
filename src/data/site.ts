@@ -26,6 +26,7 @@ export const siteData = {
     { label: 'Nosotros', href: '#nosotros' },
     { label: 'Servicios', href: '#servicios' },
     { label: 'Cobertura', href: '#cobertura' },
+    { label: 'Postulantes', href: '#postulantes', highlight: true },
     { label: 'Contacto', href: '#contacto' }
   ],
   about: {
@@ -102,6 +103,28 @@ export const siteData = {
       'Cobertura geográfica: despliegue operativo en el Norte Grande.'
     ],
     cities: ['Arica', 'Iquique', 'Calama', 'Antofagasta']
+  },
+  careers: {
+    eyebrow: 'Trabaja con nosotros',
+    title: 'Súmate al equipo EIRP+',
+    subtitle: 'Buscamos gente comprometida con la higiene y mantención industrial.',
+    text: 'Si tienes experiencia en aseo industrial, mantenimiento, obras civiles o electricidad, y quieres formar parte de un equipo con presencia en el Norte Grande, esta es tu oportunidad. Revisamos cada postulación y te contactamos si tu perfil calza con una vacante disponible.',
+    steps: [
+      {
+        title: 'Completa el formulario',
+        text: 'Ingresa tus datos personales, experiencia, certificaciones y el puesto que te interesa.'
+      },
+      {
+        title: 'Revisamos tu postulación',
+        text: 'Nuestro equipo evalúa tu perfil según las vacantes disponibles en cada faena.'
+      },
+      {
+        title: 'Te contactamos',
+        text: 'Si tu perfil calza, te contactamos por correo o teléfono para los siguientes pasos.'
+      }
+    ],
+    formHref: 'https://forms.gle/o9oBd1Ykq2djG4Rw6',
+    buttonLabel: 'Ir al formulario de postulación'
   },
   finalCta: {
     title: 'Soluciones Limpias para Obras Seguras',
