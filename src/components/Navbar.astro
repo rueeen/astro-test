@@ -14,6 +14,8 @@ interface Props {
 }
 
 const { links, companyName } = Astro.props;
+const focusDark =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 ---
 
 <header
@@ -24,7 +26,11 @@ const { links, companyName } = Astro.props;
   <nav
     class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10"
   >
-    <a href="#inicio" class="group flex items-center gap-3">
+    <a
+      href="#inicio"
+      data-section-link
+      class:list={["group flex items-center gap-3 rounded-md", focusDark]}
+    >
       <Image
         src={logoImage}
         alt={companyName}
@@ -44,8 +50,13 @@ const { links, companyName } = Astro.props;
             link.highlight ? (
               <li>
                 <a
-                  class="group/nav flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-3.5 py-1.5 text-xs font-bold text-accent transition-all hover:bg-accent/20 lg:text-sm"
+                  class:list={[
+                    "group/nav flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-3.5 py-1.5 text-xs font-bold text-accent transition-all hover:bg-accent/20 lg:text-sm",
+                    focusDark,
+                  ]}
                   href={link.href}
+                  data-section-link
+                  data-highlight-link
                 >
                   <span class="relative flex h-2 w-2">
                     <span
@@ -60,8 +71,12 @@ const { links, companyName } = Astro.props;
             ) : (
               <li>
                 <a
-                  class="text-xs font-bold text-white transition-all hover:text-accent lg:text-sm"
+                  class:list={[
+                    "rounded-sm text-xs font-bold text-white transition-all hover:text-accent lg:text-sm",
+                    focusDark,
+                  ]}
                   data-nav-link
+                  data-section-link
                   href={link.href}
                 >
                   {link.label}
@@ -74,7 +89,11 @@ const { links, companyName } = Astro.props;
 
       <a
         href="#contacto"
-        class="hidden rounded-full bg-accent px-6 py-2.5 text-xs font-bold text-primary transition-all hover:bg-accent-hover md:block lg:px-8 lg:text-sm"
+        class:list={[
+          "hidden rounded-full bg-accent px-6 py-2.5 text-xs font-bold text-primary transition-all hover:bg-accent-hover md:block lg:px-8 lg:text-sm",
+          focusDark,
+        ]}
+        data-section-link
         data-cta
       >
         Solicitar cotización
@@ -82,22 +101,32 @@ const { links, companyName } = Astro.props;
 
       <button
         id="menu-toggle"
+        type="button"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Abrir menú"
-        class="p-1.5 text-white focus:outline-none md:hidden"
+        class:list={["rounded-md p-1.5 text-white md:hidden", focusDark]}
       >
         <svg
           class="h-7 w-7"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <path
+            data-menu-icon="open"
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2.5"
             d="M4 6h16M4 12h16M4 18h16"></path>
+          <path
+            data-menu-icon="close"
+            class="hidden"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M6 6l12 12M18 6L6 18"></path>
         </svg>
       </button>
     </div>
@@ -105,90 +134,172 @@ const { links, companyName } = Astro.props;
 
   <div
     id="mobile-menu"
-    class="mx-4 mt-2 hidden rounded-2xl border border-white/10 bg-primary-dark p-6 shadow-2xl md:hidden"
+    class="mobile-menu invisible grid grid-rows-[0fr] opacity-0 md:hidden"
+    data-open="false"
+    aria-hidden="true"
+    inert
   >
-    <ul class="flex flex-col gap-4 text-center">
-      {
-        links.map((link) =>
-          link.highlight ? (
-            <li>
-              <a
-                href={link.href}
-                class="mx-auto flex w-fit items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-lg font-bold text-accent"
-              >
-                <span class="h-2 w-2 rounded-full bg-accent" />
-                {link.label}
-              </a>
-            </li>
-          ) : (
-            <li>
-              <a
-                class="block py-1 text-lg font-bold text-white"
-                href={link.href}
-              >
-                {link.label}
-              </a>
-            </li>
-          ),
-        )
-      }
-      <li class="border-t border-white/5 pt-3 font-bold">
-        <a
-          href="#contacto"
-          class="block rounded-full bg-accent py-3 text-primary"
-        >
-          Solicitar cotización
-        </a>
-      </li>
-    </ul>
+    <div class="overflow-hidden">
+      <ul
+        class="mx-4 mt-2 flex flex-col gap-4 rounded-2xl border border-white/10 bg-primary-dark p-6 text-center shadow-2xl"
+      >
+        {
+          links.map((link) =>
+            link.highlight ? (
+              <li>
+                <a
+                  href={link.href}
+                  data-section-link
+                  data-highlight-link
+                  class:list={[
+                    "mx-auto flex w-fit items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-lg font-bold text-accent",
+                    focusDark,
+                  ]}
+                >
+                  <span class="h-2 w-2 rounded-full bg-accent" />
+                  {link.label}
+                </a>
+              </li>
+            ) : (
+              <li>
+                <a
+                  class:list={[
+                    "block rounded-md py-1 text-lg font-bold text-white aria-[current=true]:text-accent",
+                    focusDark,
+                  ]}
+                  data-section-link
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ),
+          )
+        }
+        <li class="border-t border-white/5 pt-3 font-bold">
+          <a
+            href="#contacto"
+            data-section-link
+            class:list={[
+              "block rounded-full bg-accent py-3 text-primary",
+              focusDark,
+            ]}
+          >
+            Solicitar cotización
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
 
+<style>
+  .mobile-menu {
+    transition:
+      grid-template-rows 300ms ease,
+      opacity 200ms ease,
+      visibility 300ms;
+  }
+
+  .mobile-menu[data-open="true"] {
+    visibility: visible;
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+</style>
+
 <script>
-  const header = document.querySelector("#site-header");
-  const toggle = document.querySelector("#menu-toggle");
-  const menu = document.querySelector("#mobile-menu");
-  const menuLinks = menu?.querySelectorAll("a");
+  const header = document.querySelector<HTMLElement>("#site-header");
+  const toggle = document.querySelector<HTMLButtonElement>("#menu-toggle");
+  const menu = document.querySelector<HTMLElement>("#mobile-menu");
+  const menuLinks = menu?.querySelectorAll<HTMLAnchorElement>("a");
+  const openIcon = toggle?.querySelector<SVGPathElement>(
+    '[data-menu-icon="open"]',
+  );
+  const closeIcon = toggle?.querySelector<SVGPathElement>(
+    '[data-menu-icon="close"]',
+  );
 
   const updateHeader = () => {
     if (!header) return;
-
     const isScrolled = window.scrollY > 20;
+    header.dataset.scrolled = String(isScrolled);
+    header.classList.toggle("bg-primary", !isScrolled);
+    header.classList.toggle("bg-primary-dark/98", isScrolled);
+    header.classList.toggle("backdrop-blur-md", isScrolled);
+    header.classList.toggle("shadow-xl", isScrolled);
+  };
 
-    if (isScrolled) {
-      header.dataset.scrolled = "true";
-      header.classList.add(
-        "bg-primary-dark/98",
-        "backdrop-blur-md",
-        "shadow-xl",
-      );
-      header.classList.remove("bg-primary");
-    } else {
-      header.dataset.scrolled = "false";
-      header.classList.add("bg-primary");
-      header.classList.remove(
-        "bg-primary-dark/98",
-        "backdrop-blur-md",
-        "shadow-xl",
-      );
-    }
+  const setMenuOpen = (isOpen: boolean, restoreFocus = false) => {
+    if (!menu || !toggle) return;
+    menu.dataset.open = String(isOpen);
+    menu.setAttribute("aria-hidden", String(!isOpen));
+    menu.toggleAttribute("inert", !isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    openIcon?.classList.toggle("hidden", isOpen);
+    closeIcon?.classList.toggle("hidden", !isOpen);
+    if (restoreFocus) toggle.focus();
   };
 
   toggle?.addEventListener("click", () => {
-    const isOpen = !menu?.classList.contains("hidden");
-
-    menu?.classList.toggle("hidden");
-    toggle.setAttribute("aria-expanded", String(!isOpen));
-    toggle.setAttribute("aria-label", isOpen ? "Abrir menú" : "Cerrar menú");
+    setMenuOpen(toggle.getAttribute("aria-expanded") !== "true");
   });
 
   menuLinks?.forEach((link) => {
-    link.addEventListener("click", () => {
-      menu?.classList.add("hidden");
-      toggle?.setAttribute("aria-expanded", "false");
-      toggle?.setAttribute("aria-label", "Abrir menú");
-    });
+    link.addEventListener("click", () => setMenuOpen(false));
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      toggle?.getAttribute("aria-expanded") === "true"
+    ) {
+      setMenuOpen(false, true);
+    }
+  });
+
+  const sectionLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"),
+  );
+  const sectionIds = [
+    ...new Set(
+      sectionLinks
+        .map((link) => link.hash.slice(1))
+        .filter((id) => document.getElementById(id)),
+    ),
+  ];
+
+  const setActiveSection = (id: string) => {
+    sectionLinks.forEach((link) => {
+      const active = link.hash === `#${id}`;
+      if (active) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  if ("IntersectionObserver" in window) {
+    const visibleSections = new Map<string, IntersectionObserverEntry>();
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visibleSections.set(entry.target.id, entry);
+          else visibleSections.delete(entry.target.id);
+        });
+        const active = [...visibleSections.values()].sort(
+          (a, b) => b.intersectionRatio - a.intersectionRatio,
+        )[0];
+        if (active) setActiveSection(active.target.id);
+      },
+      { rootMargin: "-128px 0px -55% 0px", threshold: [0, 0.2, 0.5] },
+    );
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) sectionObserver.observe(section);
+    });
+  } else {
+    setActiveSection("inicio");
+  }
 
   window.addEventListener("scroll", updateHeader, { passive: true });
   updateHeader();

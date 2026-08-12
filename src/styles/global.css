@@ -9,12 +9,12 @@
   --color-accent-ink: #8a5a00;
   --color-surface: #e6f0ff;
   --color-surface-muted: #f5f7fa;
-  --color-support: #0dfc20;
+  --color-support: #a3d9a5;
 }
 
 :root {
   color-scheme: light;
-  --header-h: 80px;
+  --header-h: 96px;
 }
 
 section[id] {
@@ -23,7 +23,7 @@ section[id] {
 
 @media (min-width: 48rem) {
   :root {
-    --header-h: 104px;
+    --header-h: 128px;
   }
 }
 
@@ -83,7 +83,8 @@ body {
 }
 
 [data-nav-link]:hover::after,
-[data-nav-link]:focus-visible::after {
+[data-nav-link]:focus-visible::after,
+[data-nav-link][aria-current="true"]::after {
   transform: scaleX(1);
 }
 
@@ -129,7 +130,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   [data-reveal],
   [data-hero-in],
-  [data-pin] {
+  [data-pin],
+  #mobile-menu {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

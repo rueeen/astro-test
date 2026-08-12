@@ -20,15 +20,17 @@ const { title, subtitle, text, mission, vision } = Astro.props;
   >
     <div class="space-y-6">
       <SectionHeading eyebrow="Nosotros" title={title} lead={subtitle} />
-      <p class="text-primary/80">{text}</p>
+      <div class="space-y-6" data-reveal>
+        <p class="text-primary/80">{text}</p>
 
-      <div class="relative w-full overflow-hidden rounded-2xl shadow-lg">
-        <Image
-          src={aboutImage}
-          alt="Operación industrial"
-          class="h-auto w-full object-cover object-center"
-          quality="high"
-        />
+        <div class="relative w-full overflow-hidden rounded-2xl shadow-lg">
+          <Image
+            src={aboutImage}
+            alt="Operación industrial"
+            class="h-auto w-full object-cover object-center"
+            quality="high"
+          />
+        </div>
       </div>
     </div>
 

@@ -23,63 +23,80 @@ const { title, subtitle, items } = Astro.props;
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     <SectionHeading eyebrow="Servicios" title={title} lead={subtitle} />
 
-    <div class="mt-10 space-y-4 md:hidden">
+    <div class="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-6">
       {
         items.map((service, index) => (
           <details
-            class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-primary/15"
+            class="service-card rounded-2xl bg-white p-5 shadow-sm ring-1 ring-primary/15 transition md:p-6 md:hover:-translate-y-1 md:hover:shadow-lg"
+            data-service-card
             data-reveal
           >
-            <summary class="cursor-pointer text-lg font-semibold text-primary">
-              {index + 1}. {service.title}
+            <summary class="service-summary cursor-pointer text-lg font-semibold text-primary md:cursor-default md:text-2xl md:font-bold">
+              <span class="md:hidden">{index + 1}. </span>
+              {service.title}
             </summary>
-            {service.subtitle && (
-              <p class="mt-4 font-medium text-primary">{service.subtitle}</p>
-            )}
-            <p class="mt-3 text-primary/80">{service.intro}</p>
-            <ul class="mt-4 list-disc space-y-2 pl-5 text-primary/80">
-              {service.details.map((detail) => (
-                <li>{detail}</li>
-              ))}
-            </ul>
-            {service.highlight && (
-              <p class="mt-4 rounded-xl bg-support/45 p-3 font-semibold text-primary">
-                {service.highlight}
-              </p>
-            )}
+            <div class="service-content">
+              {service.subtitle && (
+                <p class="mt-4 font-medium text-primary md:mt-2 md:font-semibold">
+                  {service.subtitle}
+                </p>
+              )}
+              <p class="mt-3 text-primary/80">{service.intro}</p>
+              <ul class="mt-4 space-y-2 text-primary/80 md:text-sm">
+                {service.details.map((detail) => (
+                  <li class="flex gap-2">
+                    <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent md:mt-1" />
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
+              {service.highlight && (
+                <p class="mt-4 rounded-xl bg-support/45 p-3 font-semibold text-primary md:bg-primary md:text-white">
+                  {service.highlight}
+                </p>
+              )}
+            </div>
           </details>
-        ))
-      }
-    </div>
-
-    <div class="mt-12 hidden gap-6 md:grid md:grid-cols-3">
-      {
-        items.map((service) => (
-          <article
-            data-reveal
-            class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-primary/15 transition hover:-translate-y-1 hover:shadow-lg"
-          >
-            <h3 class="text-2xl font-bold text-primary">{service.title}</h3>
-            {service.subtitle && (
-              <p class="mt-2 font-semibold text-primary">{service.subtitle}</p>
-            )}
-            <p class="mt-3 text-primary/80">{service.intro}</p>
-            <ul class="mt-4 space-y-2 text-sm text-primary/80">
-              {service.details.map((detail) => (
-                <li class="flex gap-2">
-                  <span class="mt-1 h-2 w-2 rounded-full bg-accent" />
-                  <span>{detail}</span>
-                </li>
-              ))}
-            </ul>
-            {service.highlight && (
-              <p class="mt-4 rounded-xl bg-primary p-3 font-semibold text-white">
-                {service.highlight}
-              </p>
-            )}
-          </article>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  @media (min-width: 48rem) {
+    .service-summary {
+      list-style: none;
+      pointer-events: none;
+    }
+
+    .service-summary::-webkit-details-marker {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const desktopServices = window.matchMedia("(min-width: 768px)");
+  const serviceCards = document.querySelectorAll<HTMLDetailsElement>(
+    "[data-service-card]",
+  );
+
+  const syncServiceCards = (isDesktop: boolean) => {
+    serviceCards.forEach((card) => {
+      if (isDesktop) card.open = true;
+      else card.removeAttribute("open");
+    });
+  };
+
+  serviceCards.forEach((card) => {
+    card.addEventListener("toggle", () => {
+      if (desktopServices.matches && !card.open) card.open = true;
+    });
+  });
+
+  desktopServices.addEventListener("change", (event) =>
+    syncServiceCards(event.matches),
+  );
+  syncServiceCards(desktopServices.matches);
+</script>

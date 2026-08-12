@@ -25,28 +25,30 @@ const { eyebrow, title, subtitle, text, steps, formHref, buttonLabel } =
     <div class="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
       <div>
         <SectionHeading eyebrow={eyebrow} title={title} lead={subtitle} pulse />
-        <p class="mt-4 text-primary/80">{text}</p>
+        <div data-reveal>
+          <p class="mt-4 text-primary/80">{text}</p>
 
-        <a
-          href={formHref}
-          target="_blank"
-          rel="noreferrer"
-          class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-xl"
-        >
-          {buttonLabel}
-          <svg
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <a
+            href={formHref}
+            target="_blank"
+            rel="noreferrer"
+            class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.2"
-              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </a>
+            {buttonLabel}
+            <svg
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div class="grid gap-5" data-reveal>

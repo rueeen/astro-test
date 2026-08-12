@@ -3,42 +3,41 @@ import { Image } from "astro:assets";
 import mapaCobertura from "../assets/mapa-cobertura-2.png";
 import SectionHeading from "./SectionHeading.astro";
 
+interface City {
+  name: string;
+  top: string;
+  left: string;
+  status: "operativo" | "expansion";
+}
+
 interface Props {
   title: string;
   text: string;
   points: string[];
+  cities: City[];
 }
 
-const { title, text, points } = Astro.props;
-
-const regionesChile = [
-  { nombre: "Arica", top: "8.5%", left: "51.5%" },
-  { nombre: "Iquique", top: "12.8%", left: "51.5%" },
-  { nombre: "Calama", top: "16.2%", left: "55%" },
-  { nombre: "Antofagasta", top: "19.5%", left: "52.5%" },
-  { nombre: "Santiago", top: "37.5%", left: "49%" },
-];
+const { title, text, points, cities } = Astro.props;
+const cityLabel = (city: City) =>
+  city.status === "expansion" ? `${city.name} · Próximamente` : city.name;
 ---
 
 <section
   id="cobertura"
-  class="relative overflow-hidden bg-primary py-20 text-slate-100"
+  class="coverage-section relative overflow-hidden bg-primary py-20 text-slate-100"
 >
-  <div
-    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(163,217,165,0.28),_transparent_56%)]"
-  >
-  </div>
+  <div class="coverage-glow pointer-events-none absolute inset-0"></div>
 
   <div class="relative mx-auto max-w-7xl px-5 lg:px-8">
     <div
       class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16"
     >
       <div
-        class="relative overflow-hidden rounded-[32px] bg-primary/60 p-4 shadow-[0_30px_60px_rgba(0,0,0,0.35)] sm:p-6"
+        class="map-card relative overflow-hidden rounded-[32px] bg-primary/60 p-4 sm:p-6"
         data-reveal
       >
         <div
-          class="relative mx-auto h-[500px] w-[220px] py-4 sm:h-[720px] sm:w-[280px] sm:py-8 lg:h-[860px] lg:w-[320px]"
+          class="relative mx-auto h-[500px] w-[220px] py-4 sm:h-[640px] sm:w-[260px] sm:py-8 lg:h-[640px] lg:w-[260px]"
         >
           <Image
             src={mapaCobertura}
@@ -47,50 +46,114 @@ const regionesChile = [
           />
 
           {
-            regionesChile.map((reg, index) => (
+            cities.map((city, index) => (
               <div
-                class="group absolute z-10"
-                style={`top: ${reg.top}; left: ${reg.left}; transform: translate(-50%, -50%);`}
+                class="absolute z-10"
+                style={`top: ${city.top}; left: ${city.left}; transform: translate(-50%, -50%);`}
               >
-                <div
-                  class="group-hover:scale-110"
+                <button
+                  type="button"
+                  class="group relative block rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-support"
+                  aria-label={
+                    city.status === "expansion"
+                      ? `Proyección de cobertura en ${city.name}`
+                      : `Cobertura en ${city.name}`
+                  }
                   data-pin
                   style={`--pin-delay: ${300 + index * 140}ms;`}
                 >
-                  <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-support/27 sm:h-6 sm:w-6" />
-
-                  <span class="relative block h-3.5 w-3.5 cursor-pointer rounded-full border-2 border-primary bg-support shadow-[0_0_15px_rgba(163,217,165,0.9)] sm:h-4 sm:w-4" />
+                  {city.status === "operativo" && (
+                    <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-support/30 sm:h-6 sm:w-6" />
+                  )}
 
                   <span
-                    class="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md bg-primary/95 px-2 py-1 text-[10px] font-bold text-white shadow-xl backdrop-blur-sm sm:left-6 sm:px-2.5 sm:text-[11px]
-                               pointer-events-none opacity-0 transition-all duration-300 ease-out 
-                               group-hover:translate-x-1 group-hover:opacity-100 group-hover:bg-support group-hover:text-primary"
-                  >
-                    {reg.nombre}
+                    class:list={[
+                      "pin-dot relative block h-3.5 w-3.5 rounded-full border-2 border-support sm:h-4 sm:w-4",
+                      city.status === "operativo"
+                        ? "bg-support"
+                        : "border-dashed bg-transparent",
+                    ]}
+                  />
+
+                  <span class="pointer-events-none absolute left-5 top-1/2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-primary/95 px-2 py-1 text-[10px] font-bold text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:bg-support group-hover:text-primary group-hover:opacity-100 group-focus-visible:translate-x-1 group-focus-visible:bg-support group-focus-visible:text-primary group-focus-visible:opacity-100 md:block sm:left-6 sm:px-2.5 sm:text-[11px]">
+                    {cityLabel(city)}
                   </span>
-                </div>
+                </button>
               </div>
             ))
           }
         </div>
-      </div>
 
-      <div class="space-y-8">
-        <SectionHeading title={title} lead={text} light />
-
-        <ul class="space-y-4">
+        <ul
+          class="mt-4 grid grid-cols-2 gap-2 border-t border-white/15 pt-4 text-xs sm:text-sm md:hidden"
+          aria-label="Ciudades de cobertura"
+        >
           {
-            points.map((point) => (
-              <li class="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_10px_35px_rgba(2,6,23,0.4)] backdrop-blur-sm transition-all hover:border-white/30 sm:items-center sm:gap-4 sm:p-5">
-                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-support shadow-[0_0_16px_rgba(163,217,165,0.95)]" />
-                <span class="text-base font-semibold leading-snug text-slate-200 sm:text-xl">
-                  {point}
-                </span>
+            cities.map((city) => (
+              <li class="flex items-center gap-2 text-slate-100">
+                <span
+                  class:list={[
+                    "h-2.5 w-2.5 shrink-0 rounded-full border border-support",
+                    city.status === "operativo"
+                      ? "bg-support"
+                      : "border-dashed bg-transparent",
+                  ]}
+                />
+                {cityLabel(city)}
               </li>
             ))
           }
         </ul>
       </div>
+
+      <div class="space-y-8">
+        <SectionHeading title={title} lead={text} light />
+
+        <div data-reveal>
+          <ul class="space-y-4">
+            {
+              points.map((point) => (
+                <li class="coverage-point flex items-start gap-3 rounded-2xl border border-white/15 bg-white/[0.07] p-4 backdrop-blur-sm transition-all hover:border-white/30 sm:items-center sm:gap-4 sm:p-5">
+                  <span class="point-dot h-3.5 w-3.5 shrink-0 rounded-full bg-support" />
+                  <span class="text-base font-semibold leading-snug text-slate-200 sm:text-xl">
+                    {point}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .coverage-glow {
+    background: radial-gradient(
+      circle at top,
+      color-mix(in srgb, var(--color-support) 28%, transparent),
+      transparent 56%
+    );
+  }
+
+  .map-card {
+    box-shadow: 0 30px 60px
+      color-mix(in srgb, var(--color-primary-deep) 70%, transparent);
+  }
+
+  .pin-dot {
+    box-shadow: 0 0 15px
+      color-mix(in srgb, var(--color-support) 90%, transparent);
+  }
+
+  .coverage-point {
+    box-shadow: 0 10px 35px
+      color-mix(in srgb, var(--color-primary-deep) 70%, transparent);
+  }
+
+  .point-dot {
+    box-shadow: 0 0 16px
+      color-mix(in srgb, var(--color-support) 95%, transparent);
+  }
+</style>

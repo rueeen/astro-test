@@ -102,7 +102,13 @@ export const siteData = {
       'Personal calificado: equipo técnico con certificaciones al día y prevencionista de riesgos dedicado.',
       'Cobertura geográfica: despliegue operativo en el Norte Grande.'
     ],
-    cities: ['Arica', 'Iquique', 'Calama', 'Antofagasta']
+    cities: [
+      { name: 'Arica', top: '8.5%', left: '51.5%', status: 'operativo' },
+      { name: 'Iquique', top: '12.8%', left: '51.5%', status: 'operativo' },
+      { name: 'Calama', top: '16.2%', left: '55%', status: 'operativo' },
+      { name: 'Antofagasta', top: '19.5%', left: '52.5%', status: 'operativo' },
+      { name: 'Santiago', top: '37.5%', left: '49%', status: 'expansion' }
+    ]
   },
   careers: {
     eyebrow: 'Trabaja con nosotros',
