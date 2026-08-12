@@ -27,14 +27,14 @@ const { title, text, contact } = Astro.props;
       <div class="mt-8 flex flex-wrap gap-3 sm:gap-4">
         <a
           href="#formulario-contacto"
-          class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-accent-hover sm:px-7 sm:text-base"
+          class="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:px-7 sm:text-base"
           >Solicitar cotización
         </a>
         <a
           href={contact.whatsappHref}
           target="_blank"
           rel="noreferrer"
-          class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold transition hover:bg-white/10 sm:px-7 sm:text-base"
+          class="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:px-7 sm:text-base"
           >Escribir por WhatsApp
         </a>
       </div>
@@ -83,83 +83,128 @@ const { title, text, contact } = Astro.props;
         />
         <input type="hidden" name="from_name" value="Portal EIRP+" />
 
+        <input
+          type="checkbox"
+          name="botcheck"
+          class="hidden"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+
         <h3 class="text-xl font-bold text-primary">Formulario de contacto</h3>
-        <div class="mt-5 grid gap-4">
-          <label class="text-sm font-medium text-primary/85" for="nombre"
-            >Nombre</label
-          >
-          <input
-            id="nombre"
-            name="nombre"
-            required
-            class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <p class="hidden text-sm text-red-600" data-error-for="nombre">
-            Ingresa tu nombre.
-          </p>
+        <div class="mt-5 grid gap-5">
+          <div class="grid gap-1.5">
+            <label class="text-sm font-medium text-primary/85" for="nombre"
+              >Nombre</label
+            >
+            <input
+              id="nombre"
+              name="nombre"
+              required
+              aria-describedby="nombre-error"
+              class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p
+              id="nombre-error"
+              class="invisible min-h-5 text-sm text-red-600"
+              data-error-for="nombre"
+            >
+              Ingresa tu nombre.
+            </p>
+          </div>
 
-          <label class="text-sm font-medium text-primary/85" for="empresa"
-            >Empresa</label
-          >
-          <input
-            id="empresa"
-            name="empresa"
-            required
-            class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <p class="hidden text-sm text-red-600" data-error-for="empresa">
-            Ingresa el nombre de tu empresa.
-          </p>
+          <div class="grid gap-1.5">
+            <label class="text-sm font-medium text-primary/85" for="empresa"
+              >Empresa</label
+            >
+            <input
+              id="empresa"
+              name="empresa"
+              required
+              aria-describedby="empresa-error"
+              class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p
+              id="empresa-error"
+              class="invisible min-h-5 text-sm text-red-600"
+              data-error-for="empresa"
+            >
+              Ingresa el nombre de tu empresa.
+            </p>
+          </div>
 
-          <label class="text-sm font-medium text-primary/85" for="telefono"
-            >Teléfono</label
-          >
-          <input
-            id="telefono"
-            name="telefono"
-            type="tel"
-            required
-            class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <p class="hidden text-sm text-red-600" data-error-for="telefono">
-            Ingresa un teléfono válido.
-          </p>
+          <div class="grid gap-1.5">
+            <label class="text-sm font-medium text-primary/85" for="telefono"
+              >Teléfono</label
+            >
+            <input
+              id="telefono"
+              name="telefono"
+              type="tel"
+              required
+              aria-describedby="telefono-error"
+              class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p
+              id="telefono-error"
+              class="invisible min-h-5 text-sm text-red-600"
+              data-error-for="telefono"
+            >
+              Ingresa un teléfono válido.
+            </p>
+          </div>
 
-          <label class="text-sm font-medium text-primary/85" for="email"
-            >Email</label
-          >
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
-          <p class="hidden text-sm text-red-600" data-error-for="email">
-            Ingresa un email válido.
-          </p>
+          <div class="grid gap-1.5">
+            <label class="text-sm font-medium text-primary/85" for="email"
+              >Email</label
+            >
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              aria-describedby="email-error"
+              class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <p
+              id="email-error"
+              class="invisible min-h-5 text-sm text-red-600"
+              data-error-for="email"
+            >
+              Ingresa un email válido.
+            </p>
+          </div>
 
-          <label class="text-sm font-medium text-primary/85" for="mensaje"
-            >Mensaje</label
-          >
-          <textarea
-            id="mensaje"
-            name="mensaje"
-            rows="4"
-            required
-            class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-          ></textarea>
-          <p class="hidden text-sm text-red-600" data-error-for="mensaje">
-            Describe tu requerimiento.
-          </p>
+          <div class="grid gap-1.5">
+            <label class="text-sm font-medium text-primary/85" for="mensaje"
+              >Mensaje</label
+            >
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="4"
+              required
+              aria-describedby="mensaje-error"
+              class="rounded-xl border border-slate-300 px-4 py-2.5 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            ></textarea>
+            <p
+              id="mensaje-error"
+              class="invisible min-h-5 text-sm text-red-600"
+              data-error-for="mensaje"
+            >
+              Describe tu requerimiento.
+            </p>
+          </div>
         </div>
 
         <button
           type="submit"
-          class="mt-6 w-full rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark"
-          >Enviar solicitud</button
+          class="mt-6 w-full rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-wait disabled:opacity-70"
         >
-        <p class="mt-3 text-sm" id="form-status" aria-live="polite"></p>
+          <span data-submit-label>Enviar solicitud</span>
+        </button>
+        <p class="mt-3 min-h-5 text-sm" id="form-status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -170,6 +215,10 @@ const { title, text, contact } = Astro.props;
     "#formulario-contacto",
   ) as HTMLFormElement;
   const status = document.querySelector("#form-status");
+  const submitButton = form?.querySelector<HTMLButtonElement>(
+    'button[type="submit"]',
+  );
+  const submitLabel = form?.querySelector<HTMLElement>("[data-submit-label]");
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -192,18 +241,20 @@ const { title, text, contact } = Astro.props;
       const invalid = value.length === 0 || emailInvalid || phoneInvalid;
 
       input.setAttribute("aria-invalid", String(invalid));
-      error.classList.toggle("hidden", !invalid);
+      error.classList.toggle("invisible", !invalid);
       if (invalid) valid = false;
     });
 
     if (!valid) {
       status.textContent = "Revisa los campos marcados.";
-      status.className = "mt-3 text-sm text-red-600";
+      status.className = "mt-3 min-h-5 text-sm text-red-600";
       return;
     }
 
     status.textContent = "Enviando solicitud...";
-    status.className = "mt-3 text-sm text-primary/80";
+    status.className = "mt-3 min-h-5 text-sm text-primary/80";
+    if (submitButton) submitButton.disabled = true;
+    if (submitLabel) submitLabel.textContent = "Enviando…";
 
     const formData = new FormData(form);
 
@@ -233,14 +284,17 @@ const { title, text, contact } = Astro.props;
       if (response.ok) {
         status.textContent =
           "¡Solicitud enviada! Te contactaremos a la brevedad.";
-        status.className = "mt-3 text-sm text-emerald-700";
+        status.className = "mt-3 min-h-5 text-sm text-emerald-700";
         form.reset();
       } else {
         throw new Error();
       }
     } catch (e) {
       status.textContent = "Error al enviar. Intenta de nuevo.";
-      status.className = "mt-3 text-sm text-red-600";
+      status.className = "mt-3 min-h-5 text-sm text-red-600";
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+      if (submitLabel) submitLabel.textContent = "Enviar solicitud";
     }
   });
 </script>
