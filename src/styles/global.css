@@ -9,7 +9,8 @@
   --color-accent-ink: #8a5a00;
   --color-surface: #e6f0ff;
   --color-surface-muted: #f5f7fa;
-  --color-support: #a3d9a5;
+  --color-support: #0dfc20;
+  --color-support-glow: #a3d9a5;
 }
 
 :root {
