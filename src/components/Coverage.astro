@@ -68,7 +68,7 @@ const cityLabel = (city: City) =>
                       class:list={[
                         "pin-dot relative block h-3.5 w-3.5 rounded-full border-2 sm:h-4 sm:w-4",
                         city.status === "operativo"
-                          ? "border-support bg-primary"
+                          ? "border-primary bg-support"
                           : "border-dashed border-primary bg-transparent",
                       ]}
                     />
@@ -131,7 +131,7 @@ const cityLabel = (city: City) =>
   .coverage-glow {
     background: radial-gradient(
       circle at top,
-      color-mix(in srgb, var(--color-support) 28%, transparent),
+      color-mix(in srgb, var(--color-support-glow) 28%, transparent),
       transparent 56%
     );
   }
@@ -153,7 +153,7 @@ const cityLabel = (city: City) =>
 
   .pin-dot {
     box-shadow: 0 0 6px
-      color-mix(in srgb, var(--color-support) 45%, transparent);
+      color-mix(in srgb, var(--color-support-glow) 90%, transparent);
   }
 
   .coverage-point {
@@ -163,6 +163,6 @@ const cityLabel = (city: City) =>
 
   .point-dot {
     box-shadow: 0 0 16px
-      color-mix(in srgb, var(--color-support) 95%, transparent);
+      color-mix(in srgb, var(--color-support-glow) 95%, transparent);
   }
 </style>
