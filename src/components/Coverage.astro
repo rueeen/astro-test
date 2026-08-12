@@ -32,13 +32,16 @@ const cityLabel = (city: City) =>
     <div
       class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16"
     >
-      <div class="map-card relative" data-reveal>
-        <div class="relative mx-auto aspect-[572/3172] w-[90px] sm:w-[115px]">
-          <div class="absolute inset-0 overflow-hidden rounded-2xl">
+      <div
+        class="map-card relative overflow-hidden rounded-[32px] bg-primary/60 p-4 sm:p-6"
+        data-reveal
+      >
+        <div class="relative mx-auto aspect-[1248/3444] w-[170px] sm:w-[209px]">
+          <div class="absolute inset-0">
             <Image
               src={mapaCobertura}
               alt="Mapa de cobertura de Chile"
-              class="coverage-map opacity-95 saturate-[1.15]"
+              class="absolute inset-0 h-full w-full opacity-95 saturate-[1.15]"
             />
           </div>
 
@@ -139,16 +142,6 @@ const cityLabel = (city: City) =>
   .map-card {
     box-shadow: 0 30px 60px
       color-mix(in srgb, var(--color-primary-deep) 70%, transparent);
-  }
-
-  .coverage-map {
-    position: absolute;
-    top: -4.29%;
-    left: -49.66%;
-    width: 218.2%;
-    height: 108.58%;
-    max-width: none;
-    object-fit: fill;
   }
 
   .pin-dot {
