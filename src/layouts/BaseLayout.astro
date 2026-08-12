@@ -28,7 +28,11 @@ const organizationSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
-    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    {
+      keywords.length > 0 && (
+        <meta name="keywords" content={keywords.join(", ")} />
+      )
+    }
     <meta name="robots" content="index,follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
@@ -42,31 +46,15 @@ const organizationSchema = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="canonical" href={canonicalUrl} />
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
     <link rel="icon" type="image/png" href={logoImage.src} />
     <link rel="apple-touch-icon" href={logoImage.src} />
     <title>{title}</title>
   </head>
-  <body
-    class="watermark-bg bg-[#e6f0ff] text-[#003366] antialiased relative min-h-screen"
-  >
+  <body class="relative min-h-screen bg-surface text-primary antialiased">
     <slot />
-
-    <style define:vars={{ logoUrl: `url(${logoImage.src})` }}>
-      .watermark-bg::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        background-image: var(--logoUrl);
-        background-size: 200px;
-        background-repeat: repeat;
-        background-position: center;
-        background-attachment: fixed;
-        opacity: 0.5;
-        filter: grayscale(80%);
-      }
-    </style>
   </body>
 </html>
