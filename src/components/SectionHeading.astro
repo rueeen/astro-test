@@ -1,33 +1,77 @@
 ---
 interface Props {
+  eyebrow?: string;
   title: string;
-  subtitle?: string;
+  lead?: string;
   light?: boolean;
+  align?: "left" | "center";
+  pulse?: boolean;
+  bar?: boolean;
 }
 
-const { title, subtitle, light = false } = Astro.props;
-const titleColor = light ? "text-white" : "text-[#003366]";
-const subtitleColor = light ? "text-[#ffaa00]" : "text-[#ffaa00]";
-const barColor = light ? "bg-[#ffaa00]" : "bg-[#003366]";
+const {
+  eyebrow,
+  title,
+  lead,
+  light = false,
+  align = "left",
+  pulse = false,
+  bar = false,
+} = Astro.props;
+
+const centered = align === "center";
 ---
 
-<div class="flex items-start gap-4" data-reveal>
-  <span class:list={["mt-2 h-16 w-2 shrink-0 rounded-full", barColor]}></span>
-  <div>
+<div
+  class:list={[
+    "flex gap-4",
+    centered ? "justify-center text-center" : "items-start text-left",
+  ]}
+  data-reveal
+>
+  {bar && <span class="mt-2 h-16 w-2 shrink-0 rounded-full bg-accent" />}
+  <div class:list={[centered && "mx-auto"]}>
+    {
+      eyebrow && (
+        <p
+          class:list={[
+            "flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em]",
+            centered && "justify-center",
+            light ? "text-accent" : "text-accent-ink",
+          ]}
+        >
+          {pulse && (
+            <span class="relative flex h-2 w-2">
+              <span
+                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"
+                data-nav-badge-ring
+              />
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
+          )}
+          {eyebrow}
+        </p>
+      )
+    }
     <h2
-      class:list={["text-4xl font-black leading-tight md:text-6xl", titleColor]}
+      class:list={[
+        "text-3xl font-bold md:text-4xl lg:text-5xl",
+        eyebrow && "mt-3",
+        light ? "text-white" : "text-primary",
+      ]}
     >
       {title}
     </h2>
     {
-      subtitle && (
+      lead && (
         <p
           class:list={[
-            "mt-2 text-2xl font-semibold md:text-4xl",
-            subtitleColor,
+            "mt-4 text-lg",
+            centered && "mx-auto max-w-3xl",
+            light ? "text-slate-200" : "text-primary/80",
           ]}
         >
-          {subtitle}
+          {lead}
         </p>
       )
     }

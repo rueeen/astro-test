@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import backgroundPic from "../assets/banner2.png";
 
 interface Props {
@@ -15,15 +16,19 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
 
 <section
   id="inicio"
-  class="relative min-h-screen overflow-hidden bg-[#003366] text-white"
+  class="relative min-h-screen overflow-hidden bg-primary text-white"
 >
   <!-- Imagen de fondo -->
   <div class="absolute inset-0">
-    <img
-      src={backgroundPic.src}
+    <Picture
+      src={backgroundPic}
+      formats={["avif", "webp"]}
+      widths={[640, 960, 1280, 1920, 2560]}
+      sizes="100vw"
       alt="Fondo industrial de Higiene Industrial Plus EIRP"
       class="absolute inset-0 h-full w-full max-w-none scale-[1.05] object-cover object-center md:object-[70%_center]"
       loading="eager"
+      fetchpriority="high"
       decoding="async"
       data-parallax
     />
@@ -31,16 +36,17 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
 
   <!-- Capa oscura -->
   <div
-    class="absolute inset-0 bg-gradient-to-b from-[#003366]/90 via-[#003366]/80 to-[#003366]/70 md:bg-gradient-to-r"
+    class="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/70 md:bg-gradient-to-r"
     aria-hidden="true"
-  ></div>
+  >
+  </div>
 
   <!-- Contenido -->
   <div
     class="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-5 pb-10 pt-32 lg:px-8"
   >
     <p
-      class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#ffaa00]"
+      class="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-accent"
       data-hero-in
       style="--hero-delay: 60ms"
     >
@@ -71,7 +77,11 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
       {supportingText}
     </p>
 
-    <div class="mt-8 flex flex-wrap gap-3" data-hero-in style="--hero-delay: 440ms">
+    <div
+      class="mt-8 flex flex-wrap gap-3"
+      data-hero-in
+      style="--hero-delay: 440ms"
+    >
       {
         chips.map((chip) => (
           <span class="rounded-full border border-white/35 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
@@ -81,10 +91,14 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
       }
     </div>
 
-    <div class="mt-10 flex flex-wrap gap-4" data-hero-in style="--hero-delay: 520ms">
+    <div
+      class="mt-10 flex flex-wrap gap-4"
+      data-hero-in
+      style="--hero-delay: 520ms"
+    >
       <a
         href="#contacto"
-        class="rounded-full bg-[#ffaa00] px-7 py-3.5 text-base font-semibold text-[#003366] transition hover:scale-[1.03] hover:bg-[#ffd166] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffaa00]"
+        class="rounded-full bg-accent px-7 py-3.5 text-base font-semibold text-primary transition hover:scale-[1.03] hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
         Solicitar cotización
       </a>
@@ -101,13 +115,19 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
   </div>
 </section>
 
+<style>
+  picture {
+    display: contents;
+  }
+</style>
+
 <script>
   // Subtle scroll parallax on the hero background image.
   // Throttled with rAF, disabled entirely for reduced-motion users via CSS.
   const parallaxEl = document.querySelector<HTMLElement>("[data-parallax]");
   const heroSection = document.querySelector<HTMLElement>("#inicio");
   const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    "(prefers-reduced-motion: reduce)",
   ).matches;
 
   if (parallaxEl && heroSection && !prefersReducedMotion) {
@@ -131,7 +151,7 @@ const { heading, subheading, supportingText, chips, whatsappHref } =
           ticking = true;
         }
       },
-      { passive: true }
+      { passive: true },
     );
 
     updateParallax();

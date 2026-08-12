@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import mapaCobertura from "../assets/mapa-cobertura-2.png";
+import SectionHeading from "./SectionHeading.astro";
 
 interface Props {
   title: string;
@@ -21,7 +22,7 @@ const regionesChile = [
 
 <section
   id="cobertura"
-  class="relative overflow-hidden bg-[#003366] py-20 text-slate-100"
+  class="relative overflow-hidden bg-primary py-20 text-slate-100"
 >
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(163,217,165,0.28),_transparent_56%)]"
@@ -33,10 +34,12 @@ const regionesChile = [
       class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16"
     >
       <div
-        class="relative overflow-hidden rounded-[32px] bg-[#003366]/60 p-4 shadow-[0_30px_60px_rgba(0,0,0,0.35)] sm:p-6"
+        class="relative overflow-hidden rounded-[32px] bg-primary/60 p-4 shadow-[0_30px_60px_rgba(0,0,0,0.35)] sm:p-6"
         data-reveal
       >
-        <div class="relative mx-auto h-[500px] w-[220px] py-4 sm:h-[720px] sm:w-[280px] sm:py-8 lg:h-[860px] lg:w-[320px]">
+        <div
+          class="relative mx-auto h-[500px] w-[220px] py-4 sm:h-[720px] sm:w-[280px] sm:py-8 lg:h-[860px] lg:w-[320px]"
+        >
           <Image
             src={mapaCobertura}
             alt="Mapa de cobertura de Chile"
@@ -54,14 +57,14 @@ const regionesChile = [
                   data-pin
                   style={`--pin-delay: ${300 + index * 140}ms;`}
                 >
-                  <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-[#0DFC2045] sm:h-6 sm:w-6" />
+                  <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-support/27 sm:h-6 sm:w-6" />
 
-                  <span class="relative block h-3.5 w-3.5 cursor-pointer rounded-full border-2 border-[#003366] bg-[#0DFC20] shadow-[0_0_15px_rgba(163,217,165,0.9)] sm:h-4 sm:w-4" />
+                  <span class="relative block h-3.5 w-3.5 cursor-pointer rounded-full border-2 border-primary bg-support shadow-[0_0_15px_rgba(163,217,165,0.9)] sm:h-4 sm:w-4" />
 
                   <span
-                    class="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md bg-[#003366]/95 px-2 py-1 text-[10px] font-bold text-white shadow-xl backdrop-blur-sm sm:left-6 sm:px-2.5 sm:text-[11px]
+                    class="absolute left-5 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md bg-primary/95 px-2 py-1 text-[10px] font-bold text-white shadow-xl backdrop-blur-sm sm:left-6 sm:px-2.5 sm:text-[11px]
                                pointer-events-none opacity-0 transition-all duration-300 ease-out 
-                               group-hover:translate-x-1 group-hover:opacity-100 group-hover:bg-[#0DFC20] group-hover:text-[#003366]"
+                               group-hover:translate-x-1 group-hover:opacity-100 group-hover:bg-support group-hover:text-primary"
                   >
                     {reg.nombre}
                   </span>
@@ -72,19 +75,14 @@ const regionesChile = [
         </div>
       </div>
 
-      <div class="space-y-8" data-reveal>
-        <div class="text-center lg:text-left">
-          <h2 class="text-3xl font-bold leading-tight md:text-5xl">{title}</h2>
-          <p class="mx-auto mt-4 max-w-2xl text-base text-slate-300 sm:text-lg lg:mx-0">
-            {text}
-          </p>
-        </div>
+      <div class="space-y-8">
+        <SectionHeading title={title} lead={text} light />
 
         <ul class="space-y-4">
           {
             points.map((point) => (
               <li class="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/[0.07] p-4 shadow-[0_10px_35px_rgba(2,6,23,0.4)] backdrop-blur-sm transition-all hover:border-white/30 sm:items-center sm:gap-4 sm:p-5">
-                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-[#0DFC20] shadow-[0_0_16px_rgba(163,217,165,0.95)]" />
+                <span class="h-3.5 w-3.5 shrink-0 rounded-full bg-support shadow-[0_0_16px_rgba(163,217,165,0.95)]" />
                 <span class="text-base font-semibold leading-snug text-slate-200 sm:text-xl">
                   {point}
                 </span>

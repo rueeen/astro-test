@@ -18,20 +18,20 @@ const { links, companyName } = Astro.props;
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-[100] w-full bg-[#003366] py-3 transition-all duration-500 ease-in-out md:py-4"
+  class="fixed inset-x-0 top-0 z-[100] w-full bg-primary py-3 transition-all duration-500 ease-in-out md:py-4"
   data-scrolled="false"
 >
-  <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10">
+  <nav
+    class="mx-auto flex max-w-7xl items-center justify-between px-5 lg:px-10"
+  >
     <a href="#inicio" class="group flex items-center gap-3">
       <Image
         src={logoImage}
         alt={companyName}
         class="h-14 w-auto object-contain transition-all duration-300 group-hover:scale-105 md:h-18"
-        data-logo
       />
       <span
         class="hidden text-xl font-black tracking-tighter text-white transition-all duration-300 sm:block md:text-2xl"
-        data-brand
       >
         EIRP+
       </span>
@@ -44,15 +44,15 @@ const { links, companyName } = Astro.props;
             link.highlight ? (
               <li>
                 <a
-                  class="group/nav flex items-center gap-2 rounded-full border border-[#ffaa00]/50 bg-[#ffaa00]/10 px-3.5 py-1.5 text-xs font-bold text-[#ffaa00] transition-all hover:bg-[#ffaa00]/20 lg:text-sm"
+                  class="group/nav flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-3.5 py-1.5 text-xs font-bold text-accent transition-all hover:bg-accent/20 lg:text-sm"
                   href={link.href}
                 >
                   <span class="relative flex h-2 w-2">
                     <span
-                      class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ffaa00] opacity-75"
+                      class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"
                       data-nav-badge-ring
                     />
-                    <span class="relative inline-flex h-2 w-2 rounded-full bg-[#ffaa00]" />
+                    <span class="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                   </span>
                   {link.label}
                 </a>
@@ -60,21 +60,21 @@ const { links, companyName } = Astro.props;
             ) : (
               <li>
                 <a
-                  class="text-xs font-bold text-white transition-all hover:text-[#ffaa00] lg:text-sm"
+                  class="text-xs font-bold text-white transition-all hover:text-accent lg:text-sm"
                   data-nav-link
                   href={link.href}
                 >
                   {link.label}
                 </a>
               </li>
-            )
+            ),
           )
         }
       </ul>
 
       <a
         href="#contacto"
-        class="hidden rounded-full bg-[#ffaa00] px-6 py-2.5 text-xs font-bold text-[#003366] transition-all hover:bg-[#ffd166] md:block lg:px-8 lg:text-sm"
+        class="hidden rounded-full bg-accent px-6 py-2.5 text-xs font-bold text-primary transition-all hover:bg-accent-hover md:block lg:px-8 lg:text-sm"
         data-cta
       >
         Solicitar cotización
@@ -87,13 +87,17 @@ const { links, companyName } = Astro.props;
         aria-label="Abrir menú"
         class="p-1.5 text-white focus:outline-none md:hidden"
       >
-        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          class="h-7 w-7"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2.5"
-            d="M4 6h16M4 12h16M4 18h16"
-          ></path>
+            d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
     </div>
@@ -101,7 +105,7 @@ const { links, companyName } = Astro.props;
 
   <div
     id="mobile-menu"
-    class="mx-4 mt-2 hidden rounded-2xl border border-white/10 bg-[#00264d] p-6 shadow-2xl md:hidden"
+    class="mx-4 mt-2 hidden rounded-2xl border border-white/10 bg-primary-dark p-6 shadow-2xl md:hidden"
   >
     <ul class="flex flex-col gap-4 text-center">
       {
@@ -110,23 +114,29 @@ const { links, companyName } = Astro.props;
             <li>
               <a
                 href={link.href}
-                class="mx-auto flex w-fit items-center gap-2 rounded-full border border-[#ffaa00]/50 bg-[#ffaa00]/10 px-4 py-1.5 text-lg font-bold text-[#ffaa00]"
+                class="mx-auto flex w-fit items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-4 py-1.5 text-lg font-bold text-accent"
               >
-                <span class="h-2 w-2 rounded-full bg-[#ffaa00]" />
+                <span class="h-2 w-2 rounded-full bg-accent" />
                 {link.label}
               </a>
             </li>
           ) : (
             <li>
-              <a class="block py-1 text-lg font-bold text-white" href={link.href}>
+              <a
+                class="block py-1 text-lg font-bold text-white"
+                href={link.href}
+              >
                 {link.label}
               </a>
             </li>
-          )
+          ),
         )
       }
       <li class="border-t border-white/5 pt-3 font-bold">
-        <a href="#contacto" class="block rounded-full bg-[#ffaa00] py-3 text-[#003366]">
+        <a
+          href="#contacto"
+          class="block rounded-full bg-accent py-3 text-primary"
+        >
           Solicitar cotización
         </a>
       </li>
@@ -147,12 +157,20 @@ const { links, companyName } = Astro.props;
 
     if (isScrolled) {
       header.dataset.scrolled = "true";
-      header.classList.add("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl");
-      header.classList.remove("bg-[#003366]");
+      header.classList.add(
+        "bg-primary-dark/98",
+        "backdrop-blur-md",
+        "shadow-xl",
+      );
+      header.classList.remove("bg-primary");
     } else {
       header.dataset.scrolled = "false";
-      header.classList.add("bg-[#003366]");
-      header.classList.remove("bg-[#00264d]/98", "backdrop-blur-md", "shadow-xl");
+      header.classList.add("bg-primary");
+      header.classList.remove(
+        "bg-primary-dark/98",
+        "backdrop-blur-md",
+        "shadow-xl",
+      );
     }
   };
 
