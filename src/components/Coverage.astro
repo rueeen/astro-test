@@ -7,7 +7,6 @@ interface City {
   name: string;
   top: string;
   left: string;
-  status: "operativo" | "expansion";
 }
 
 interface Props {
@@ -18,8 +17,6 @@ interface Props {
 }
 
 const { title, text, points, cities } = Astro.props;
-const cityLabel = (city: City) =>
-  city.status === "expansion" ? `${city.name} · Próximamente` : city.name;
 ---
 
 <section
@@ -55,29 +52,16 @@ const cityLabel = (city: City) =>
                   <button
                     type="button"
                     class="group relative block rounded-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-support"
-                    aria-label={
-                      city.status === "expansion"
-                        ? `Proyección de cobertura en ${city.name}`
-                        : `Cobertura en ${city.name}`
-                    }
+                    aria-label={`Cobertura en ${city.name}`}
                     data-pin
                     style={`--pin-delay: ${300 + index * 140}ms;`}
                   >
-                    {city.status === "operativo" && (
-                      <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-support/30 sm:h-6 sm:w-6" />
-                    )}
+                    <span class="absolute left-1/2 top-1/2 h-5 w-5 -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full bg-support/30 sm:h-6 sm:w-6" />
 
-                    <span
-                      class:list={[
-                        "pin-dot relative block h-3.5 w-3.5 rounded-full border-2 sm:h-4 sm:w-4",
-                        city.status === "operativo"
-                          ? "border-primary bg-support"
-                          : "border-dashed border-primary bg-transparent",
-                      ]}
-                    />
+                    <span class="pin-dot relative block h-3.5 w-3.5 rounded-full border-2 border-primary bg-support sm:h-4 sm:w-4" />
 
                     <span class="pointer-events-none absolute left-5 top-1/2 hidden -translate-y-1/2 whitespace-nowrap rounded-md bg-primary/95 px-2 py-1 text-[10px] font-bold text-white opacity-0 shadow-xl backdrop-blur-sm transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:bg-support group-hover:text-primary group-hover:opacity-100 group-focus-visible:translate-x-1 group-focus-visible:bg-support group-focus-visible:text-primary group-focus-visible:opacity-100 md:block sm:left-6 sm:px-2.5 sm:text-[11px]">
-                      {cityLabel(city)}
+                      {city.name}
                     </span>
                   </button>
                 </div>
@@ -93,15 +77,8 @@ const cityLabel = (city: City) =>
           {
             cities.map((city) => (
               <li class="flex items-center gap-2 text-slate-100">
-                <span
-                  class:list={[
-                    "h-2.5 w-2.5 shrink-0 rounded-full border border-support",
-                    city.status === "operativo"
-                      ? "bg-support"
-                      : "border-dashed bg-transparent",
-                  ]}
-                />
-                {cityLabel(city)}
+                <span class="h-2.5 w-2.5 shrink-0 rounded-full border border-support bg-support" />
+                {city.name}
               </li>
             ))
           }

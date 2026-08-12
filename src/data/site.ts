@@ -103,11 +103,11 @@ export const siteData = {
       'Cobertura geográfica: despliegue operativo en el Norte Grande.'
     ],
     cities: [
-      { name: 'Arica', top: '5.16%', left: '51.66%', status: 'operativo' },
-      { name: 'Iquique', top: '9.81%', left: '51.66%', status: 'operativo' },
-      { name: 'Calama', top: '13.48%', left: '55.55%', status: 'operativo' },
-      { name: 'Antofagasta', top: '17.05%', left: '52.77%', status: 'operativo' },
-      { name: 'Santiago', top: '36.49%', left: '48.89%', status: 'expansion' }
+      { name: 'Arica', top: '5.16%', left: '51.66%' },
+      { name: 'Iquique', top: '9.81%', left: '51.66%' },
+      { name: 'Calama', top: '13.48%', left: '55.55%' },
+      { name: 'Antofagasta', top: '17.05%', left: '52.77%' },
+      { name: 'Santiago', top: '36.49%', left: '48.89%' }
     ]
   },
   careers: {
